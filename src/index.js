@@ -26,7 +26,7 @@ import corpora from "./corpus";
 import makeRoarTrial from "./utils";
 
 // CSS imports
-// import "./css/game_v4.css";
+import "./css/game_v4.css";
 
 let firekit;
 const timeline = [];

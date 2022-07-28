@@ -64,9 +64,7 @@ export const post_practice_intro = {
 const countdown_trial_3 = {
   type: jsPsychAudioKeyboardResponse,
   stimulus: audioContent.countdown3,
-  prompt: `
-        <div class = stimulus_div><p class = 'stimulus'>3</p></div>
-        <img class="lower" src="${imgContent.arrowkeyLex}" alt="arrow keys">`,
+  prompt: `<div class = stimulus_div><p class = 'stimulus'>3</p></div>`,
   choices: "NO_KEYS",
   trial_duration: 1000,
   data: {
@@ -78,8 +76,7 @@ const countdown_trial_2 = {
   type: jsPsychAudioKeyboardResponse,
   stimulus: audioContent.countdown2,
   prompt: function () {
-    return `<div class = stimulus_div><p class = 'stimulus'>2</p></div>
-   <img class="lower" src="${imgContent.arrowkeyLex}" alt="arrow keys" >`;
+    return `<div class = stimulus_div><p class = 'stimulus'>2</p></div>`;
   },
   choices: "NO_KEYS",
   trial_duration: 1000,
@@ -92,8 +89,7 @@ const countdown_trial_1 = {
   type: jsPsychAudioKeyboardResponse,
   stimulus: audioContent.countdown1,
   prompt: function () {
-    return `<div class = stimulus_div><p class = 'stimulus'>1</p></div>
-<img class="lower" src="${imgContent.arrowkeyLex}" alt="arrow keys">`;
+    return `<div class = stimulus_div><p class = 'stimulus'>1</p></div>`;
   },
   choices: "NO_KEYS",
   trial_duration: 1000,
@@ -106,8 +102,7 @@ const countdown_trial_0 = {
   type: jsPsychAudioKeyboardResponse,
   stimulus: audioContent.countdown0,
   prompt: function () {
-    return `<div class = stimulus_div><p class = 'stimulus'>0</p></div>
-<img class="lower" src="${imgContent.arrowkeyLex}" alt="arrow keys">`;
+    return `<div class = stimulus_div><p class = 'stimulus'>0</p></div>`;
   },
   choices: "NO_KEYS",
   trial_duration: 1000,

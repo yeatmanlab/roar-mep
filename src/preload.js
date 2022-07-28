@@ -1,6 +1,17 @@
 import jsPsychPreload from "@jspsych/plugin-preload";
 
+// Audio files
+import countdown0 from "./assets/audio/countdown0.mp3";
+import countdown1 from "./assets/audio/countdown1.mp3";
+import countdown2 from "./assets/audio/countdown2.mp3";
+import countdown3 from "./assets/audio/countdown3.mp3";
+
+// Image files
+// import image1 from "./assets/image1.gif";
+// import image2 from "./assets/image2.png";
+// import image3 from "./assets/image3.png";
 // Character svg images
+
 function importAll(r) {
   const chars = {};
   r.keys().forEach((char) => { chars[char.replace('./', '')] = r(char); });
@@ -8,23 +19,13 @@ function importAll(r) {
 }
 
 export const characters = importAll(require.context('./assets/svg', false, /\.(svg)$/));
-console.log(characters);
-
-// Audio files
-// import intro1 from "./assets/intro1.mp3";
-// import intro2 from "./assets/intro2.mp3";
-// import intro3 from "./assets/intro3.mp3";
-
-// Image files
-// import image1 from "./assets/image1.gif";
-// import image2 from "./assets/image2.png";
-// import image3 from "./assets/image3.png";
 
 const audioBlocks = {
   1: [
-    // intro1,
-    // intro2,
-    // intro3,
+    countdown0,
+    countdown1,
+    countdown2,
+    countdown3,
   ],
 };
 
