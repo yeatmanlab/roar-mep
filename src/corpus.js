@@ -1,5 +1,5 @@
 /* eslint-disable no-plusplus */
-import { readCSV } from "./config";
+import { arrSum, readCSV } from "./config";
 
 // Word corpus imports
 import practiceCorpus from "./corpora/practice_block.csv";
@@ -41,6 +41,13 @@ const csvPromises = {
 
 const csvAssets = await loadAll(csvPromises);
 
+export const svgName = (letter, pseudoFont = true) => {
+  if (pseudoFont) {
+    return `latinSmall${letter}.svg`;
+  }
+  return `latinCapital${letter}.svg`;
+};
+
 const transformCSV = (csvInput) => csvInput.reduce((accum, row) => {
   if (row.string !== null) {
     const newRow = {
@@ -59,4 +66,6 @@ Object.keys(csvAssets).forEach((key) => {
   corpora[key] = transformCSV(csvAssets[key]);
 });
 
-export default corpora;
+export const nStimuli = arrSum(Object.values(corpora).map((corpus) => corpus.length));
+
+export { corpora };

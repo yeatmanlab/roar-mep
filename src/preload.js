@@ -44,6 +44,15 @@ const preloadObj2contentObj = (preloadObj) => {
   }, {});
 };
 
+const preload_character_trials = {
+  type: jsPsychPreload,
+  images: Object.values(characters),
+  auto_preload: false,
+  message: "0 Please wait while the experiment loads.",
+  show_progress_bar: true,
+  show_detailed_errors: true,
+};
+
 export const audioContent = preloadObj2contentObj(audioBlocks);
 
 const preload_audio_trials = Object.entries(audioBlocks).map((element) => {
@@ -81,4 +90,6 @@ const preload_img_trials = Object.entries(imageBlocks).map((element) => {
   };
 });
 
-export const preload_trials = [...preload_audio_trials, ...preload_img_trials];
+export const preload_trials = [
+  ...preload_audio_trials, ...preload_img_trials, preload_character_trials,
+];

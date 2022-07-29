@@ -8,6 +8,7 @@ const urlParams = new URLSearchParams(queryString);
 const userMode = urlParams.get("mode") || "default";
 const taskVariant = urlParams.get("variant") || "default";
 const pid = urlParams.get("participant");
+const pseudoFont = urlParams.get("latinFont") !== "true";
 
 /* set dashboard redirect URLs: school as default */
 const redirectInfo = {
@@ -21,7 +22,7 @@ function configTaskInfo() {
     taskInfo = {
       taskId: "mep",
       taskName: "Multiple element processing",
-      variantName: userMode,
+      variantName: `${userMode}-${pseudoFont ? "pseudo" : "latin"}`,
       taskDescription: "This is a task measuring the automaticity of single character recognition.",
       variantDescription:
           "This variant uses one two-element block, two four-element blocks, and two six-element blocks.",
@@ -64,20 +65,30 @@ function configTaskInfo() {
 
 export const taskInfo = configTaskInfo();
 
+export const arrSum = (arr) => arr.reduce((a, b) => a + b, 0);
+
 export const config = {
   userMode: userMode,
   pid: pid,
   taskVariant: taskVariant,
-  sessionId: `${taskVariant}-${userMode}`,
+  sessionId: `${taskVariant}-${userMode}-${pseudoFont ? "pseudo" : "latin"}`,
   userMetadata: {},
   testingOnly: userMode === "test" || userMode === "demo" || taskVariant === "pilot",
   timing: {
+    fixationDuration: 1000, // milliseconds
     targetDuration: 240, // milliseconds
     targetOnset: 600, // milliseconds
     postMaskOnset: 840, // milliseconds
     responseOnset: 940, // milliseconds
   },
-
+  practiceTiming: {
+    fixationDuration: 2000, // milliseconds
+    targetDuration: 1200, // milliseconds
+    targetOnset: 1200, // milliseconds
+    postMaskOnset: 2400, // milliseconds
+    responseOnset: 2500, // milliseconds
+  },
+  pseudoFont: pseudoFont,
   /* record date */
   startTime: new Date(),
 };
@@ -94,9 +105,6 @@ export const jsPsych = initJsPsych({
   },
 });
 
-/* simple variable for calculating sum of an array */
-const arrSum = (arr) => arr.reduce((a, b) => a + b, 0);
-
 /* csv helper function */
 export const readCSV = (url) =>
   new Promise((resolve) => {
@@ -111,8 +119,3 @@ export const readCSV = (url) =>
       },
     });
   });
-
-export const updateProgressBar = () => {
-  const curr_progress_bar_value = jsPsych.getProgressBarCompleted();
-  jsPsych.setProgressBar(curr_progress_bar_value + 1 / arrSum(config.stimulusCountList));
-};

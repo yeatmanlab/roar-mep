@@ -23,7 +23,7 @@ h2 {
 	font-style: normal;
 	font-weight: regular;
 	font-size: 4vh;
-	color: rgba(0,0,0,1);
+	color: rgba(76,101,139,1);
 }
 
 h3 {
@@ -31,8 +31,8 @@ h3 {
 	font-family: "Source Sans Pro", Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
 	font-style: normal;
 	font-weight: regular;
-	font-size: 5vh;
-	color: rgba(0,0,0,1);
+	font-size: 3vh;
+	color: rgba(76,101,139,1);
 }
 
 p  {
@@ -107,6 +107,18 @@ p  {
 	font-size: 3vh;
 	line-height: 3vh;
 	color: rgba(0,0,0,1);
+}
+
+.jspsych-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
 }
 
 .stimulus_div {
@@ -197,7 +209,7 @@ p  {
 .button {
 	left:0;
 	right:0;
-	background-color: rgba(76,101,139,1);
+	background-color: rgb(255, 255, 255);
 	text-align:center;
 	vertical-align: middle;
 	padding: 2vh;
@@ -205,7 +217,7 @@ p  {
 	font-style: normal;
 	font-weight: bold;
 	font-size: 3vh;
-	color: rgba(255,255,255,1);
+	color: rgb(0, 0, 0);
 	position: fixed;
 	display: block;
 	bottom: 0;
@@ -341,7 +353,16 @@ p  {
 
 /* borrowing Bootstrap style for btn elements, but combining styles a bit */
 .jspsych-btn {
-	display: inline-block;
+	padding: 0px 0px 100% 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	left: 0;
+	top: 0;
+	background: white;
+	border-width: 0px 0px 5px 0px;
+	border-color: rgba(255, 255, 255, 0);
+	/* display: inline-block;
 	padding: 1vh 2vh;
 	margin: 1vh;
 	font-size: 4vh;
@@ -355,16 +376,48 @@ p  {
 	background-image: none;
 	border: 1vh solid transparent;
 	border-radius: 1vh;
-	color: rgba(255,255,255,1);
-	background-color: rgba(76,101,139,1);
-	border-color: darkgrey;
+	color: rgb(0, 0, 0);
+	background-color: rgb(255, 255, 255);
+	border-color: darkgrey; */
+}
+
+#jspsych-html-button-response-stimulus {
+	margin-bottom: 20px;
+}
+
+#fixation-prompt {
+	margin-bottom: 3.3%;
+}
+
+.jspsych-html-button-response-button {
+	display: inline-block;
+	width: 3.3%;
+	height: 3.3%;
+	margin: 0.26%;
 }
 
 #jspsych-fullscreen-btn{
-	position: fixed;
+	position: sticky;
 	bottom: 20%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	color: rgba(255, 255, 255, 1);
+	background-color: rgba(76, 101, 139, 1);
+	border-color: darkgrey;
+	display: inline-block;
+	padding: 1vh 2vh;
+	margin: 4vh 1vh 1vh 1vh;
+	font-size: 4vh;
+	font-weight: bold;
+	font-family: "Source Sans Pro", Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+	cursor: pointer;
+	line-height: 1.4;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	background-image: none;
+	border: 1vh solid transparent;
+	border-radius: 1vh;
 }
 
 .jspsych-survey-html-form{
@@ -372,7 +425,6 @@ p  {
 	bottom: 20%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-
 }
 
 

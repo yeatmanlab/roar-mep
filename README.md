@@ -1,15 +1,13 @@
-# ROAR-SWR (v3.x)
+# ROAR-MEP (v1.x)
 
-Development for jsPsych version of ROAR-Single Word Recognition. 
-Versions and their dependencies are packaged within
- folders to ensure continued functionality as new test versions are deployed.
+Development for jsPsych version of ROAR-Multiple Element Processing
 
 ## Organization 
 ### Config File
 src/config.js
 
 ### Experiment
-src/experiment.js
+src/index.js
 
 ### CSS
 src/css/game_v4.css
@@ -20,4 +18,4 @@ webpack.config.js
 ## TODO
 
 ## Links
-- Deployed experiment available (https://roar-swr.web.app)
+- Deployed experiment available (https://roar-mep.web.app)
