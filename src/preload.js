@@ -2,6 +2,7 @@ import jsPsychPreload from "@jspsych/plugin-preload";
 
 // Image files
 import star from "./assets/images/star.svg";
+import advance from "./assets/images/advance.jpeg";
 
 // Video files
 import pseudoBlock1 from "./assets/video/pseudoBlock1.mp4";
@@ -60,6 +61,7 @@ const videoBlocks = {
 const imageBlocks = {
   2: [
     star,
+    advance,
   ],
 };
 

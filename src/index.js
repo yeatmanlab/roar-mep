@@ -20,7 +20,7 @@ import {
 import { characters, preload_trials } from "./preload";
 // import { countdown_trials } from "./introduction";
 import { svgName, corpora } from "./corpus";
-import makeRoarTrial from "./utils";
+import { makeRoarTrial } from "./utils";
 import videoTrials from "./videos";
 
 // CSS imports
@@ -85,20 +85,24 @@ timeline.push(enter_fullscreen);
 
 const pushMEPTrials = (corpus, isPractice) => {
   corpus.forEach((stimulus) => {
-    const stimuli = stimulus.stimulus;
-    const choices = stimuli.map(
+    let stimuli = stimulus.stimulus;
+    let choices = ["K", "D", "P", "F", "G", "H"];
+    choices = choices.map(
       (choice) => characters[svgName(choice, config.pseudoFont)],
     );
-    stimuli.splice(stimuli.length / 2, 0, "plus");
-    choices.splice(stimuli.length / 2, 0, characters["plus.svg"]);
-    const correctResponseIdx = stimuli.indexOf(stimulus.correctResponse);
-    const source = '<div><h2>Please click on the underlined character</h2></div>';
+    stimuli = stimuli.map(
+      (stim) => characters[svgName(stim, config.pseudoFont)],
+    );
+    stimuli.splice(stimuli.length / 2, 0, characters["plus.svg"]);
+    const correctResponseIdx = stimuli.indexOf(
+      characters[svgName(stimulus.correctResponse, config.pseudoFont)],
+    );
     const timingKey = isPractice ? "practiceTiming" : "timing";
     const inputStimulus = {
-      source: source,
+      source: stimuli,
       choices: choices,
       stimulusDuration: config[timingKey].stimulusDuration,
-      trialDuration: null,
+      cueDuration: config[timingKey].maskDuration,
       correctResponse: stimulus.correctResponse,
       correctResponseIdx: correctResponseIdx,
       block: stimulus.block,
@@ -115,19 +119,19 @@ const pushMEPTrials = (corpus, isPractice) => {
   });
 };
 
-timeline.push(videoTrials.intro);
+timeline.push(...videoTrials.intro);
 pushMEPTrials(corpora.practice, true);
-timeline.push(videoTrials.postPractice);
+timeline.push(...videoTrials.postPractice);
 pushMEPTrials(corpora.n2, false);
-timeline.push(videoTrials.postTwoLetterBlock);
+timeline.push(...videoTrials.postTwoLetterBlock);
 pushMEPTrials(corpora.n4a, false);
-timeline.push(videoTrials.rewardAnimation1);
+timeline.push(...videoTrials.rewardAnimation1);
 pushMEPTrials(corpora.n4b, false);
-timeline.push(videoTrials.postBlock1);
+timeline.push(...videoTrials.postBlock1);
 pushMEPTrials(corpora.n6a, false);
-timeline.push(videoTrials.rewardAnimation2);
+timeline.push(...videoTrials.rewardAnimation2);
 pushMEPTrials(corpora.n6b, false);
-timeline.push(videoTrials.end);
+timeline.push(...videoTrials.end);
 
 const exit_fullscreen = {
   type: jsPsychFullScreen,

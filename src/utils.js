@@ -1,102 +1,87 @@
-import jsPsychHtmlKeyboardResponse from "@jspsych/plugin-html-keyboard-response";
 import jsPsychHtmlButtonResponse from "@jspsych/plugin-html-button-response";
+import jsPsychHtmlKeyboardResponse from "@jspsych/plugin-html-keyboard-response";
 import { jsPsych } from "./config";
-import { characters } from "./preload";
 import { nStimuli } from "./corpus";
+import { characters } from "./preload";
 
-const buttonHtml = (nChoices, isResponse, correctResponseIdx = 0) => {
-  const buttonHtmlString = '<button class="jspsych-btn" type="button"><img src="%choice%" width="100%" height="100%"/></button>';
-  const buttonHtmlArray = Array(nChoices).fill(buttonHtmlString);
-
-  // We assume that nChoices is even
-  buttonHtmlArray[nChoices / 2 - 1] = '<button class="jspsych-btn" style="margin-right: 1.91%;" type="button"><img src="%choice%" width="100%" height="100%"/></button>';
-  buttonHtmlArray[nChoices / 2] = '<button class="jspsych-btn" style="margin-left: 1.91%;" type="button"><img src="%choice%" width="100%" height="100%"/></button>';
-
-  if (isResponse) {
-    return buttonHtmlArray;
-  }
-
-  let style;
-  if (correctResponseIdx === nChoices / 2 - 1) {
-    style = '"margin-right: 1.91% !important; border-color: black;"';
-  } else if (correctResponseIdx === nChoices / 2) {
-    style = '"margin-left: 1.91% !important; border-color: black;"';
-  } else {
-    style = '"border-color: black;"';
-  }
-  buttonHtmlArray[correctResponseIdx] = `<button class="jspsych-btn" style=${style} type="button"><img src="%choice%" width="100%" height="100%"/></button>`;
-
-  return buttonHtmlArray;
-};
+const buttonHtml = '<button class="jspsych-btn" type="button"><img src="%choice%" width="100%" height="100%"/></button>';
 
 const updateProgressBar = () => {
   const curr_progress_bar_value = jsPsych.getProgressBarCompleted();
   jsPsych.setProgressBar(curr_progress_bar_value + 1 / nStimuli);
 };
 
-const disablePlus = () => {
-  const buttonNodes = Array.from(document.querySelectorAll('.jspsych-html-button-response-button'));
-  const plusButton = buttonNodes.filter((node) => (node.firstChild.firstChild.currentSrc.includes("plus.svg")))[0];
-  const clonedButton = plusButton.cloneNode(true);
-  plusButton.parentNode.replaceChild(clonedButton, plusButton);
+export const buildStimulusHtml = (stimuli) => {
+  let outputHtml = '<div class="center">';
+  stimuli.forEach((stimulus) => {
+    outputHtml += `<img src="${stimulus}" class="mep-stimulus"/>`;
+  });
+  outputHtml += "</div>";
+  return outputHtml;
 };
 
-const makeRoarTrial = ({
+export const buildLocationCueHtml = (stimLength, correctResponseIdx) => {
+  let outputHtml = '<div class="center">';
+  const stimuli = Array(stimLength).fill(characters["white.svg"]);
+  stimuli.splice(Math.floor(stimLength / 2), 1, characters["plus.svg"]);
+  stimuli.forEach((stimulus, index) => {
+    if (index === correctResponseIdx) {
+      outputHtml += `<img src="${stimulus}" class="mep-stimulus bottom-border-blue"/>`;
+    } else {
+      outputHtml += `<img src="${stimulus}" class="mep-stimulus"/>`;
+    }
+  });
+  outputHtml += "</div>";
+  return outputHtml;
+};
+
+export const makeRoarTrial = ({
   fixation, stimulus, isPractice,
 }) => {
   const timeline = [];
 
   const fixationTrial = {
-    type: jsPsychHtmlButtonResponse,
-    stimulus: stimulus.source,
-    choices: stimulus.choices,
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: buildStimulusHtml([stimulus.source[Math.floor(stimulus.source.length / 2)]]),
+    choices: "NO_KEYS",
     stimulus_duration: null,
     trial_duration: fixation.duration,
-    button_html: buttonHtml(1, true, stimulus.correctResponseIdx),
     data: {
       task: "fixation",
-    },
-    margin_vertical: "inherit",
-    margin_horizontal: "inherit",
-    on_load: disablePlus,
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: function () {
-      return `<div id="fixation-prompt">
-        <h2 style="padding-bottom: 20px;">Please click on the underlined character</h2>
-        <img class="jspsych-html-button-response-button" src="${characters["plus.svg"]}"/>
-      </div>`;
-    },
-    choices: "NO_KEYS",
-    trial_duration: fixation.duration,
-    data: {
-      task: "fixation",
+      fixation_duration: fixation.duration,
     },
   };
   timeline.push(fixationTrial);
 
   const stimulusTrial = {
-    type: jsPsychHtmlButtonResponse,
-    stimulus: stimulus.source,
-    choices: stimulus.choices,
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: buildStimulusHtml(stimulus.source),
+    choices: "NO_KEYS",
     stimulus_duration: null,
     trial_duration: stimulus.stimulusDuration,
-    button_html: buttonHtml(stimulus.choices.length, false, stimulus.correctResponseIdx),
     data: {
       task: "stimulus",
     },
-    margin_vertical: "inherit",
-    margin_horizontal: "inherit",
-    on_load: disablePlus,
   };
   timeline.push(stimulusTrial);
 
+  const locationCueTrial = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: buildLocationCueHtml(stimulus.source.length, stimulus.correctResponseIdx),
+    choices: "NO_KEYS",
+    stimulus_duration: null,
+    trial_duration: stimulus.cueDuration,
+    data: {
+      task: "location_cue",
+    },
+  };
+  timeline.push(locationCueTrial);
+
   const responseTrial = {
     type: jsPsychHtmlButtonResponse,
-    stimulus: stimulus.source,
+    stimulus: buildLocationCueHtml(stimulus.source.length, stimulus.correctResponseIdx),
     choices: stimulus.choices,
-    stimulus_duration: null,
-    trial_duration: stimulus.trialDuration,
-    button_html: buttonHtml(stimulus.choices.length, true, stimulus.correctResponseIdx),
+    button_html: buttonHtml,
     data: {
       task: isPractice ? "practice_response" : "test_response",
       choices: stimulus.choices,
@@ -105,7 +90,6 @@ const makeRoarTrial = ({
     },
     margin_vertical: "inherit",
     margin_horizontal: "inherit",
-    on_load: disablePlus,
     on_finish: updateProgressBar,
   };
 
@@ -113,5 +97,3 @@ const makeRoarTrial = ({
 
   return timeline;
 };
-
-export default makeRoarTrial;

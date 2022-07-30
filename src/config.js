@@ -76,18 +76,14 @@ export const config = {
   userMetadata: {},
   testingOnly: userMode === "test" || userMode === "demo" || taskVariant === "pilot",
   timing: {
-    fixationDuration: 1000, // milliseconds
+    fixationDuration: 600, // milliseconds
     stimulusDuration: 240, // milliseconds
-    targetOnset: 600, // milliseconds
-    postMaskOnset: 840, // milliseconds
-    responseOnset: 940, // milliseconds
+    maskDuration: 100, // milliseconds
   },
   practiceTiming: {
-    fixationDuration: 2000, // milliseconds
+    fixationDuration: 1200, // milliseconds
     stimulusDuration: 1200, // milliseconds
-    targetOnset: 1200, // milliseconds
-    postMaskOnset: 2400, // milliseconds
-    responseOnset: 2500, // milliseconds
+    maskDuration: 100, // milliseconds
   },
   pseudoFont: pseudoFont,
   /* record date */

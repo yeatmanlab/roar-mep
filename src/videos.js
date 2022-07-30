@@ -1,57 +1,66 @@
 import jsPsychVideoKeyboardResponse from "@jspsych/plugin-video-keyboard-response";
+import jsPsychImageButtonResponse from "@jspsych/plugin-image-button-response";
 import { config } from "./config";
 import { imgContent, videoContent } from "./preload";
 
-const buttonHtml = `<button><img style="width: 3.3%; height: 3.3%;" src="${imgContent.star}" /></button>`;
 const kwargs = {
   type: jsPsychVideoKeyboardResponse,
-  choices: "NO_KEYS",
+  choices: config.testingOnly ? "ALL_KEYS" : "NO_KEYS",
   trial_ends_after_video: true,
-  button_html: buttonHtml,
   width: 1238,
   height: 800,
   response_allowed_while_playing: config.testingOnly,
 };
 
+const buttonHtml = `<button class="star-center transparent"><img style="width: 350px; height: 350px;" src="${imgContent.star}" /></button>`;
+const clickStarTrial = {
+  type: jsPsychImageButtonResponse,
+  stimulus: [imgContent.advance],
+  choices: [""],
+  button_html: buttonHtml,
+  stimulus_width: 1238,
+  data: {
+    task: "continue_from_video",
+  },
+  margin_vertical: "inherit",
+  margin_horizontal: "inherit",
+};
+
 /* define instructions trial */
-const introTrial = {
+const introTrial = [{
   stimulus: [videoContent.pseudoIntro],
   ...kwargs,
-};
+}, clickStarTrial];
 
-const postPracticeTrial = {
+const postPracticeTrial = [{
   stimulus: [videoContent.pseudoPostPractice],
   ...kwargs,
-};
+}, clickStarTrial];
 
-const postTwoLetterBlockTrial = {
+const postTwoLetterBlockTrial = [{
   stimulus: [videoContent.pseudoPost2Block],
   ...kwargs,
-};
+}, clickStarTrial];
 
-const postBlock1Trial = {
-  type: jsPsychVideoButtonResponse,
+const postBlock1Trial = [{
   stimulus: [videoContent.pseudoBlock1],
   ...kwargs,
-};
+}, clickStarTrial];
 
-const rewardAnimation1Trial = {
-  type: jsPsychVideoButtonResponse,
+const rewardAnimation1Trial = [{
   stimulus: [videoContent.pseudoRewardAnimation1],
   ...kwargs,
-};
+}, clickStarTrial];
 
-const rewardAnimation2Trial = {
-  type: jsPsychVideoButtonResponse,
+const rewardAnimation2Trial = [{
   stimulus: [videoContent.pseudoRewardAnimation2],
   ...kwargs,
-};
+}, clickStarTrial];
 
-const endTrial = {
-  type: jsPsychVideoButtonResponse,
+const endTrial = [{
   stimulus: [videoContent.pseudoEnd],
   ...kwargs,
-};
+}, clickStarTrial];
 
 const videoTrials = {
   intro: introTrial,
