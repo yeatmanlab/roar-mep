@@ -29,7 +29,7 @@
     "@jspsych/plugin-survey-html-form": "^1.0.0",
     "@jspsych/plugin-survey-multi-select": "^1.1.0",
     "@jspsych/plugin-survey-text": "^1.1.0",
-    "@jspsych/plugin-video-button-response": "^1.1.1",
+    "@jspsych/plugin-video-keyboard-response": "^1.1.1",
     "babel-loader": "^8.2.4",
     "file-loader": "^6.2.0",
     "jspsych": "^7.2.1",

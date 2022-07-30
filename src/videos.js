@@ -1,55 +1,55 @@
-import jsPsychVideoButtonResponse from "@jspsych/plugin-video-button-response";
+import jsPsychVideoKeyboardResponse from "@jspsych/plugin-video-keyboard-response";
 import { config } from "./config";
-import { imgContent, videos } from "./preload";
+import { imgContent, videoContent } from "./preload";
 
-const buttonHtml = `<button><img src="${imgContent.star}" /></button>`;
+const buttonHtml = `<button><img style="width: 3.3%; height: 3.3%;" src="${imgContent.star}" /></button>`;
 const kwargs = {
-  type: jsPsychVideoButtonResponse,
-  choices: [""],
+  type: jsPsychVideoKeyboardResponse,
+  choices: "NO_KEYS",
+  trial_ends_after_video: true,
   button_html: buttonHtml,
+  width: 1238,
+  height: 800,
   response_allowed_while_playing: config.testingOnly,
-  on_start: function () {
-    document.body.style.cursor = "none";
-  },
 };
 
 /* define instructions trial */
 const introTrial = {
-  stimulus: videos["pseudoIntro.mp4"],
+  stimulus: [videoContent.pseudoIntro],
   ...kwargs,
 };
 
 const postPracticeTrial = {
-  stimulus: videos["pseudoPostPractice.mp4"],
+  stimulus: [videoContent.pseudoPostPractice],
   ...kwargs,
 };
 
 const postTwoLetterBlockTrial = {
-  stimulus: videos["pseudoPost2Block.mp4"],
+  stimulus: [videoContent.pseudoPost2Block],
   ...kwargs,
 };
 
 const postBlock1Trial = {
   type: jsPsychVideoButtonResponse,
-  stimulus: videos["pseudoBlock1.mp4"],
+  stimulus: [videoContent.pseudoBlock1],
   ...kwargs,
 };
 
 const rewardAnimation1Trial = {
   type: jsPsychVideoButtonResponse,
-  stimulus: videos["pseudoRewardAnimation1.mp4"],
+  stimulus: [videoContent.pseudoRewardAnimation1],
   ...kwargs,
 };
 
 const rewardAnimation2Trial = {
   type: jsPsychVideoButtonResponse,
-  stimulus: videos["pseudoRewardAnimation2.mp4"],
+  stimulus: [videoContent.pseudoRewardAnimation2],
   ...kwargs,
 };
 
 const endTrial = {
   type: jsPsychVideoButtonResponse,
-  stimulus: videos["pseudoEnd.mp4"],
+  stimulus: [videoContent.pseudoEnd],
   ...kwargs,
 };
 

@@ -121,6 +121,15 @@ p  {
 	height: 100%;
 }
 
+.vertical-center, .jspsych-video-button-response-stimulus {
+	margin: 0;
+	position: absolute;
+	top: 45%;
+	height: 90%;
+	-ms-transform: translateY(-45%);
+	transform: translateY(-45%);
+}
+
 .stimulus_div {
 	display: flex;
 	justify-content: center;
@@ -394,6 +403,13 @@ p  {
 	width: 1.65%;
 	height: 1.65%;
 	margin: 0.13%;
+}
+
+.jspsych-html-button-response-button {
+	display: inline-block;
+	width: 5%;
+	height: 5%;
+	margin: 2%;
 }
 
 #jspsych-fullscreen-btn{
