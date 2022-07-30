@@ -21,6 +21,7 @@ import { characters, preload_trials } from "./preload";
 // import { countdown_trials } from "./introduction";
 import { svgName, corpora } from "./corpus";
 import makeRoarTrial from "./utils";
+import videoTrials from "./videos";
 
 // CSS imports
 import "./css/game_v4.css";
@@ -96,7 +97,7 @@ const pushMEPTrials = (corpus, isPractice) => {
     const inputStimulus = {
       source: source,
       choices: choices,
-      stimulusDuration: config[timingKey].targetDuration,
+      stimulusDuration: config[timingKey].stimulusDuration,
       trialDuration: null,
       correctResponse: stimulus.correctResponse,
       correctResponseIdx: correctResponseIdx,
@@ -114,19 +115,19 @@ const pushMEPTrials = (corpus, isPractice) => {
   });
 };
 
-// MAHA: Here is where you would insert the intro material
+timeline.push(videoTrials.intro);
 pushMEPTrials(corpora.practice, true);
-// MAHA: Here is where you would insert an inter-block break
+timeline.push(videoTrials.postPractice);
 pushMEPTrials(corpora.n2, false);
-// MAHA: Here is where you would insert an inter-block break
+timeline.push(videoTrials.postTwoLetterBlock);
 pushMEPTrials(corpora.n4a, false);
-// MAHA: Here is where you would insert an inter-block break
+timeline.push(videoTrials.rewardAnimation1);
 pushMEPTrials(corpora.n4b, false);
-// MAHA: Here is where you would insert an inter-block break
+timeline.push(videoTrials.postBlock1);
 pushMEPTrials(corpora.n6a, false);
-// MAHA: Here is where you would insert an inter-block break
+timeline.push(videoTrials.rewardAnimation2);
 pushMEPTrials(corpora.n6b, false);
-// MAHA: Here is where you would insert the final material
+timeline.push(videoTrials.end);
 
 const exit_fullscreen = {
   type: jsPsychFullScreen,

@@ -11,6 +11,7 @@ const pid = urlParams.get("participant");
 const pseudoFont = urlParams.get("latinFont") !== "true";
 
 /* set dashboard redirect URLs: school as default */
+// TODO: MAHA insert the correct redirect URLs here
 const redirectInfo = {
   pilot: "https://reading.stanford.edu?g=910&c=1",
   default: "https://reading.stanford.edu?g=937&c=1",
@@ -76,14 +77,14 @@ export const config = {
   testingOnly: userMode === "test" || userMode === "demo" || taskVariant === "pilot",
   timing: {
     fixationDuration: 1000, // milliseconds
-    targetDuration: 240, // milliseconds
+    stimulusDuration: 240, // milliseconds
     targetOnset: 600, // milliseconds
     postMaskOnset: 840, // milliseconds
     responseOnset: 940, // milliseconds
   },
   practiceTiming: {
     fixationDuration: 2000, // milliseconds
-    targetDuration: 1200, // milliseconds
+    stimulusDuration: 1200, // milliseconds
     targetOnset: 1200, // milliseconds
     postMaskOnset: 2400, // milliseconds
     responseOnset: 2500, // milliseconds

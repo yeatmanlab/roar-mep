@@ -7,21 +7,25 @@ import countdown2 from "./assets/audio/countdown2.mp3";
 import countdown3 from "./assets/audio/countdown3.mp3";
 
 // Image files
-// import image1 from "./assets/image1.gif";
-// import image2 from "./assets/image2.png";
-// import image3 from "./assets/image3.png";
-// Character svg images
+import star from "./assets/images/star.svg";
 
 function importAll(r) {
-  const chars = {};
-  r.keys().forEach((char) => { chars[char.replace('./', '')] = r(char); });
-  return chars;
+  console.log("In importAll", r);
+  const assets = {};
+  r.keys().forEach((asset) => { assets[asset.replace('./', '')] = r(asset); });
+  console.log("In importAll", assets);
+  return assets;
 }
 
+// Video files
+export const videos = importAll(require.context("./assets/video", false, /\.(mp4)$/));
+console.log(videos);
+
+// Character svg images
 export const characters = importAll(require.context('./assets/svg', false, /\.(svg)$/));
 
 const audioBlocks = {
-  1: [
+  2: [
     countdown0,
     countdown1,
     countdown2,
@@ -53,6 +57,15 @@ const preload_character_trials = {
   show_detailed_errors: true,
 };
 
+const preload_video_trials = {
+  type: jsPsychPreload,
+  video: Object.values(videos),
+  auto_preload: false,
+  message: "1 Please wait while the experiment loads.",
+  show_progress_bar: true,
+  show_detailed_errors: true,
+};
+
 export const audioContent = preloadObj2contentObj(audioBlocks);
 
 const preload_audio_trials = Object.entries(audioBlocks).map((element) => {
@@ -69,8 +82,8 @@ const preload_audio_trials = Object.entries(audioBlocks).map((element) => {
 });
 
 const imageBlocks = {
-  2: [
-    // image1, image2, image3
+  3: [
+    star,
   ],
 };
 
@@ -91,5 +104,5 @@ const preload_img_trials = Object.entries(imageBlocks).map((element) => {
 });
 
 export const preload_trials = [
-  ...preload_audio_trials, ...preload_img_trials, preload_character_trials,
+  preload_character_trials, preload_video_trials, ...preload_audio_trials, ...preload_img_trials,
 ];

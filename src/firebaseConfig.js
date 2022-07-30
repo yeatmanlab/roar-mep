@@ -9,5 +9,6 @@ export const roarConfig = {
     appId: "1:292331000426:web:91a04220991e3405737013",
     measurementId: "G-0TBTMDS993",
   },
-  rootDoc: ["dev", "maha-dev"], //["prod", "roar-prod"],
+  // rootDoc: ["dev", "maha-dev"],
+  rootDoc: ["prod", "roar-prod"],
 };

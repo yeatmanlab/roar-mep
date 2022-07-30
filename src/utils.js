@@ -47,6 +47,18 @@ const makeRoarTrial = ({
   const timeline = [];
 
   const fixationTrial = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: stimulus.source,
+    choices: stimulus.choices,
+    stimulus_duration: null,
+    trial_duration: fixation.duration,
+    button_html: buttonHtml(1, true, stimulus.correctResponseIdx),
+    data: {
+      task: "fixation",
+    },
+    margin_vertical: "inherit",
+    margin_horizontal: "inherit",
+    on_load: disablePlus,
     type: jsPsychHtmlKeyboardResponse,
     stimulus: function () {
       return `<div id="fixation-prompt">
