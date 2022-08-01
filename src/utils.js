@@ -1,6 +1,6 @@
 import jsPsychHtmlButtonResponse from "@jspsych/plugin-html-button-response";
 import jsPsychHtmlKeyboardResponse from "@jspsych/plugin-html-keyboard-response";
-import { jsPsych } from "./config";
+import { config, jsPsych } from "./config";
 import { nStimuli } from "./corpus";
 import { characters } from "./preload";
 
@@ -84,6 +84,7 @@ export const makeRoarTrial = ({
     button_html: buttonHtml,
     data: {
       task: isPractice ? "practice_response" : "test_response",
+      isPseudoSloan: config.pseudoFont,
       choices: stimulus.choices,
       correctResponse: stimulus.correctResponse,
       correctResponseIdx: stimulus.correctResponseIdx,

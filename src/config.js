@@ -11,11 +11,7 @@ const pid = urlParams.get("participant");
 const pseudoFont = urlParams.get("latinFont") !== "true";
 
 /* set dashboard redirect URLs: school as default */
-// TODO: MAHA insert the correct redirect URLs here
-const redirectInfo = {
-  pilot: "https://reading.stanford.edu?g=910&c=1",
-  default: "https://reading.stanford.edu?g=937&c=1",
-};
+const redirectInfo = pseudoFont ? "https://reading.stanford.edu/?g=1059&c=1" : "https://reading.stanford.edu/?g=1058&c=1";
 
 function configTaskInfo() {
   let taskInfo;
@@ -97,7 +93,7 @@ export const jsPsych = initJsPsych({
   on_finish: () => {
     // jsPsych.data.displayData();
     if (userMode !== "demo") {
-      window.location.href = redirectInfo[taskVariant] || "https://reading.stanford.edu?g=901&c=1";
+      window.location.href = redirectInfo[taskVariant] || "https://reading.stanford.edu/?g=1059&c=1";
     }
   },
 });
