@@ -9,9 +9,15 @@ const userMode = urlParams.get("mode") || "default";
 const taskVariant = urlParams.get("variant") || "default";
 const pid = urlParams.get("participant");
 const pseudoFont = urlParams.get("latinFont") !== "true";
+const redirectTo = urlParams.get("redirectTo") || "refresh";
 
-/* set dashboard redirect URLs: school as default */
-const redirectInfo = pseudoFont ? "https://reading.stanford.edu/?g=1059&c=1" : "https://reading.stanford.edu/?g=1058&c=1";
+const redirect = () => {
+  if (redirectTo === 'refresh') {
+    window.location.reload();
+  } else {
+    window.location.href = pseudoFont ? "https://reading.stanford.edu/?g=1059&c=1" : "https://reading.stanford.edu/?g=1058&c=1";
+  }
+};
 
 function configTaskInfo() {
   let taskInfo;
@@ -84,6 +90,7 @@ export const config = {
   pseudoFont: pseudoFont,
   /* record date */
   startTime: new Date(),
+  urlParams: urlParams,
 };
 
 export const jsPsych = initJsPsych({
@@ -91,10 +98,7 @@ export const jsPsych = initJsPsych({
   auto_update_progress_bar: false,
   message_progress_bar: "Progress Complete",
   on_finish: () => {
-    // jsPsych.data.displayData();
-    if (userMode !== "demo") {
-      window.location.href = redirectInfo[taskVariant] || "https://reading.stanford.edu/?g=1059&c=1";
-    }
+    redirect();
   },
 });
 
