@@ -3,6 +3,7 @@
 
 // jsPsych imports
 import jsPsychFullScreen from "@jspsych/plugin-fullscreen";
+import surveyText from '@jspsych/plugin-survey-text';
 
 // Import necessary for async in the top level of the experiment script
 import "regenerator-runtime/runtime";
@@ -29,37 +30,87 @@ import "./css/game_v4.css";
 let firekit;
 const timeline = [];
 
+if (config.pid !== null) {
+  const userInfo = {
+    id: config.pid,
+    studyId: config.sessionId,
+    classId: config.classId || null,
+    schoolId: config.schoolId || null,
+    userMetadata: config.userMetadata,
+  };
+
+  firekit = new RoarFirekit({
+    config: roarConfig,
+    userInfo: userInfo,
+    taskInfo,
+  });
+
+  await firekit.startRun();
+}
+
 preload_trials.forEach((trial) => {
   timeline.push(trial);
 });
 
-function makeRandomPid() {
-  let text = "";
-  const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  for (let i = 0; i < 16; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return text;
-}
+const getPid = {
+  type: surveyText,
+  questions: [
+    {
+      prompt: 'Participant ID:',
+      name: 'pid',
+      placeholder: '0000',
+      required: true,
+    },
+    {
+      prompt: 'Class ID:',
+      name: 'ClassId',
+      placeholder: '0000',
+      required: true,
+    },
+    {
+      prompt: 'School ID',
+      name: 'SchoolId',
+      placeholder: '0000',
+      required: true,
+    },
+  ],
+  on_finish: (data) => {
+    config.pid = data.response.pid;
+    config.classId = data.response.ClassId;
+    config.schoolId = data.response.SchoolId;
+  },
+};
 
-const enter_fullscreen = {
-  type: jsPsychFullScreen,
-  fullscreen_mode: true,
-  message: `<div><h1>The experiment will switch to full screen mode. <br> Click the button to continue. </h1></div>`,
-  on_finish: async () => {
-    config.pid = config.pid || makeRandomPid();
+const ifGetPid = {
+  timeline: [getPid],
+  conditional_function: function () {
+    return config.pid === null;
+  },
+  on_timeline_finish: async () => {
     const userInfo = {
       id: config.pid,
       studyId: config.sessionId,
+      classId: config.classId || null,
+      schoolId: config.schoolId || null,
       userMetadata: config.userMetadata,
     };
+
     firekit = new RoarFirekit({
       config: roarConfig,
       userInfo: userInfo,
       taskInfo,
     });
+
     await firekit.startRun();
   },
+};
+
+timeline.push(ifGetPid);
+
+const enter_fullscreen = {
+  type: jsPsychFullScreen,
+  fullscreen_mode: true,
+  message: `<div><h1>The experiment will switch to full screen mode. <br> Click the button to continue. </h1></div>`,
 };
 
 const extend = (fn, code) =>
