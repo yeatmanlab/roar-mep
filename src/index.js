@@ -100,7 +100,7 @@ const pushMEPTrials = (corpus, isPractice) => {
     const correctResponseIdx = choices.indexOf(stimulus.correctResponse);
     const timingKey = isPractice ? "practiceTiming" : "timing";
     const inputStimulus = {
-      stimulusString: `${stimulus.stimulus.substr(0, stimuli.length / 2)}+${stimulus.stimulus.substr(stimuli.length / 2)}`,
+      stimulusString: `${stimulus.stimulus.substring(0, stimuli.length / 2)}+${stimulus.stimulus.substring(stimuli.length / 2)}`,
       source: stimuli,
       choices: choices,
       stimulusDuration: config[timingKey].stimulusDuration,
