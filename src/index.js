@@ -90,6 +90,7 @@ const pushMEPTrials = (corpus, isPractice) => {
     stimulusString = `${stimulusString.substring(0, stimuli.length / 2)}+${stimulusString.substring(stimuli.length / 2)}`;
 
     let choices = ["K", "D", "P", "F", "G", "H"];
+    const choicesString = choices.join("");
     choices = choices.map(
       (choice) => characters[svgName(choice, config.pseudoFont)],
     );
@@ -100,12 +101,13 @@ const pushMEPTrials = (corpus, isPractice) => {
     const cueLocationIdx = stimuli.indexOf(
       characters[svgName(stimulus.correctResponse, config.pseudoFont)],
     );
-    const correctResponseIdx = choices.indexOf(stimulus.correctResponse);
+    const correctResponseIdx = choicesString.indexOf(stimulus.correctResponse);
     const timingKey = isPractice ? "practiceTiming" : "timing";
     const inputStimulus = {
       stimulusString: stimulusString,
       source: stimuli,
       choices: choices,
+      choicesString: choicesString,
       stimulusDuration: config[timingKey].stimulusDuration,
       cueDuration: config[timingKey].maskDuration,
       cueLocationIdx: cueLocationIdx,
