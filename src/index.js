@@ -86,6 +86,9 @@ timeline.push(enter_fullscreen);
 const pushMEPTrials = (corpus, isPractice) => {
   corpus.forEach((stimulus) => {
     let stimuli = stimulus.stimulus;
+    let stimulusString = stimulus.stimulus.join("");
+    stimulusString = `${stimulusString.substring(0, stimuli.length / 2)}+${stimulusString.substring(stimuli.length / 2)}`;
+
     let choices = ["K", "D", "P", "F", "G", "H"];
     choices = choices.map(
       (choice) => characters[svgName(choice, config.pseudoFont)],
@@ -100,7 +103,7 @@ const pushMEPTrials = (corpus, isPractice) => {
     const correctResponseIdx = choices.indexOf(stimulus.correctResponse);
     const timingKey = isPractice ? "practiceTiming" : "timing";
     const inputStimulus = {
-      stimulusString: `${stimulus.stimulus.substring(0, stimuli.length / 2)}+${stimulus.stimulus.substring(stimuli.length / 2)}`,
+      stimulusString: stimulusString,
       source: stimuli,
       choices: choices,
       stimulusDuration: config[timingKey].stimulusDuration,
