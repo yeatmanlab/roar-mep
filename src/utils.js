@@ -67,7 +67,7 @@ export const makeRoarTrial = ({
 
   const locationCueTrial = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: buildLocationCueHtml(stimulus.source.length, stimulus.correctResponseIdx),
+    stimulus: buildLocationCueHtml(stimulus.source.length, stimulus.cueLocationIdx),
     choices: "NO_KEYS",
     stimulus_duration: null,
     trial_duration: stimulus.cueDuration,
@@ -79,15 +79,19 @@ export const makeRoarTrial = ({
 
   const responseTrial = {
     type: jsPsychHtmlButtonResponse,
-    stimulus: buildLocationCueHtml(stimulus.source.length, stimulus.correctResponseIdx),
+    stimulus: buildLocationCueHtml(stimulus.source.length, stimulus.cueLocationIdx),
     choices: stimulus.choices,
     button_html: buttonHtml,
     data: {
       task: isPractice ? "practice_response" : "test_response",
       isPseudoSloan: config.pseudoFont,
-      choices: stimulus.choices,
+      stimulusString: stimulus.stimulusString,
+      choices: stimulus.choices.join(""),
+      cueLocationIdx: stimulus.cueLocationIdx,
       correctResponse: stimulus.correctResponse,
       correctResponseIdx: stimulus.correctResponseIdx,
+      pid: config.pid,
+      urlQueryString: config.urlParams,
     },
     margin_vertical: "inherit",
     margin_horizontal: "inherit",

@@ -94,15 +94,18 @@ const pushMEPTrials = (corpus, isPractice) => {
       (stim) => characters[svgName(stim, config.pseudoFont)],
     );
     stimuli.splice(stimuli.length / 2, 0, characters["plus.svg"]);
-    const correctResponseIdx = stimuli.indexOf(
+    const cueLocationIdx = stimuli.indexOf(
       characters[svgName(stimulus.correctResponse, config.pseudoFont)],
     );
+    const correctResponseIdx = choices.indexOf(stimulus.correctResponse);
     const timingKey = isPractice ? "practiceTiming" : "timing";
     const inputStimulus = {
+      stimulusString: `${stimulus.stimulus.substr(0, stimuli.length / 2)}+${stimulus.stimulus.substr(stimuli.length / 2)}`,
       source: stimuli,
       choices: choices,
       stimulusDuration: config[timingKey].stimulusDuration,
       cueDuration: config[timingKey].maskDuration,
+      cueLocationIdx: cueLocationIdx,
       correctResponse: stimulus.correctResponse,
       correctResponseIdx: correctResponseIdx,
       block: stimulus.block,
