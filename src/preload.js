@@ -4,6 +4,10 @@ import jsPsychPreload from "@jspsych/plugin-preload";
 import star from "./assets/images/star.svg";
 import advance from "./assets/images/advance.jpeg";
 
+// Audio files
+import feedbackCorrect from "./assets/audio/feedbackCorrect.mp3";
+import feedbackIncorrect from "./assets/audio/feedbackIncorrect.mp3";
+
 // Video files
 import pseudoBlock1 from "./assets/video/pseudoBlock1.mp4";
 import pseudoEnd from "./assets/video/pseudoEnd.mp4";
@@ -65,36 +69,45 @@ const imageBlocks = {
   ],
 };
 
+const audioBlocks = {
+  3: [
+    feedbackCorrect,
+    feedbackIncorrect,
+  ],
+};
+
 // Automatically populate the audioContent object with the audio files
 export const imgContent = preloadObj2contentObj(imageBlocks);
 export const videoContent = preloadObj2contentObj(videoBlocks);
+export const audioContent = preloadObj2contentObj(audioBlocks);
 
-const preload_video_trials = Object.entries(videoBlocks).map((element) => {
-  const idx = element[0];
-  const img_block = element[1];
-  return {
-    type: jsPsychPreload,
-    video: img_block,
-    auto_preload: false,
-    message: `${idx} Please wait while the experiment loads. This may take a few minutes.`,
-    show_progress_bar: true,
-    show_detailed_errors: true,
-  };
-});
+const preload_video_trials = Object.entries(videoBlocks).map(([idx, img_block]) => ({
+  type: jsPsychPreload,
+  video: img_block,
+  auto_preload: false,
+  message: `${idx} Please wait while the experiment loads. This may take a few minutes.`,
+  show_progress_bar: true,
+  show_detailed_errors: true,
+}));
 
-const preload_img_trials = Object.entries(imageBlocks).map((element) => {
-  const idx = element[0];
-  const img_block = element[1];
-  return {
-    type: jsPsychPreload,
-    images: img_block,
-    auto_preload: false,
-    message: `${idx} Please wait while the experiment loads. This may take a few minutes.`,
-    show_progress_bar: true,
-    show_detailed_errors: true,
-  };
-});
+const preload_img_trials = Object.entries(imageBlocks).map(([idx, img_block]) => ({
+  type: jsPsychPreload,
+  images: img_block,
+  auto_preload: false,
+  message: `${idx} Please wait while the experiment loads. This may take a few minutes.`,
+  show_progress_bar: true,
+  show_detailed_errors: true,
+}));
+
+const preload_audio_trials = Object.entries(audioBlocks).map(([idx, audio_block]) => ({
+  type: jsPsychPreload,
+  audio: audio_block,
+  auto_preload: false,
+  message: `${idx} Please wait while the experiment loads. This may take a few minutes.`,
+  show_progress_bar: true,
+  show_detailed_errors: true,
+}));
 
 export const preload_trials = [
-  preload_character_trials, ...preload_video_trials, ...preload_img_trials,
+  preload_character_trials, ...preload_video_trials, ...preload_img_trials, ...preload_audio_trials,
 ];

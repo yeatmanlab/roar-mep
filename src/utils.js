@@ -1,8 +1,9 @@
+import jsPsychAudioKeyboardResponse from "@jspsych/plugin-audio-keyboard-response";
 import jsPsychHtmlButtonResponse from "@jspsych/plugin-html-button-response";
 import jsPsychHtmlKeyboardResponse from "@jspsych/plugin-html-keyboard-response";
 import { config, jsPsych } from "./config";
 import { nStimuli } from "./corpus";
-import { characters } from "./preload";
+import { audioContent, characters } from "./preload";
 
 const buttonHtml = '<button class="jspsych-btn" type="button"><img src="%choice%" width="100%" height="100%"/></button>';
 
@@ -95,10 +96,33 @@ export const makeRoarTrial = ({
     },
     margin_vertical: "inherit",
     margin_horizontal: "inherit",
-    on_finish: updateProgressBar,
+    on_finish: function (data) {
+      updateProgressBar();
+      // eslint-disable-next-line no-param-reassign
+      data.correct = data.response === stimulus.correctResponseIdx;
+    },
   };
 
   timeline.push(responseTrial);
+
+  const feedbackTrial = {
+    type: jsPsychAudioKeyboardResponse,
+    stimulus: function () {
+      const last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
+      if (last_trial_correct) {
+        return audioContent.feedbackCorrect;
+      }
+
+      return audioContent.feedbackIncorrect;
+    },
+    choices: "NO_KEYS",
+    trial_ends_after_audio: true,
+    data: {
+      task: "feedback",
+    },
+  };
+
+  timeline.push(feedbackTrial);
 
   return timeline;
 };

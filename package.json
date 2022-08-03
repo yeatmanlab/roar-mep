@@ -22,6 +22,7 @@
     "@babel/core": "^7.17.8",
     "@babel/preset-env": "^7.16.11",
     "@bdelab/roar-firekit": "^1.1.2",
+    "@jspsych/plugin-audio-keyboard-response": "^1.1.1",
     "@jspsych/plugin-fullscreen": "^1.1.0",
     "@jspsych/plugin-html-button-response": "^1.1.1",
     "@jspsych/plugin-html-keyboard-response": "^1.1.0",
