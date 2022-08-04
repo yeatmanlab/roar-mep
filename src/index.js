@@ -88,7 +88,7 @@ const ifGetPid = {
   },
   on_timeline_finish: async () => {
     const userInfo = {
-      id: config.pid,
+      id: [config.schoolId, config.classId, config.pid].join("-"),
       studyId: config.sessionId,
       classId: config.classId || null,
       schoolId: config.schoolId || null,
