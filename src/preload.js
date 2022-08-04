@@ -1,4 +1,5 @@
 import jsPsychPreload from "@jspsych/plugin-preload";
+import { config } from "./config";
 
 // Image files
 import star from "./assets/images/star.svg";
@@ -16,6 +17,13 @@ import pseudoPost2Block from "./assets/video/pseudoPost2Block.mp4";
 import pseudoPostPractice from "./assets/video/pseudoPostPractice.mp4";
 import pseudoRewardAnimation1 from "./assets/video/pseudoRewardAnimation1.mp4";
 import pseudoRewardAnimation2 from "./assets/video/pseudoRewardAnimation2.mp4";
+import latinBlock1 from "./assets/video/latinBlock1.mp4";
+import latinEnd from "./assets/video/latinEnd.mp4";
+import latinIntro from "./assets/video/latinIntro.mp4";
+import latinPost2Block from "./assets/video/latinPost2Block.mp4";
+import latinPostPractice from "./assets/video/latinPostPractice.mp4";
+import latinRewardAnimation1 from "./assets/video/latinRewardAnimation1.mp4";
+import latinRewardAnimation2 from "./assets/video/latinRewardAnimation2.mp4";
 
 function importAll(r) {
   const assets = {};
@@ -50,17 +58,32 @@ const preload_character_trials = {
   show_detailed_errors: true,
 };
 
-const videoBlocks = {
-  1: [
-    pseudoBlock1,
-    pseudoEnd,
-    pseudoIntro,
-    pseudoPost2Block,
-    pseudoPostPractice,
-    pseudoRewardAnimation1,
-    pseudoRewardAnimation2,
-  ],
-};
+let videoBlocks;
+if (config.pseudoFont) {
+  videoBlocks = {
+    1: [
+      pseudoBlock1,
+      pseudoEnd,
+      pseudoIntro,
+      pseudoPost2Block,
+      pseudoPostPractice,
+      pseudoRewardAnimation1,
+      pseudoRewardAnimation2,
+    ],
+  };
+} else {
+  videoBlocks = {
+    1: [
+      latinBlock1,
+      latinEnd,
+      latinIntro,
+      latinPost2Block,
+      latinPostPractice,
+      latinRewardAnimation1,
+      latinRewardAnimation2,
+    ],
+  };
+}
 
 const imageBlocks = {
   2: [
