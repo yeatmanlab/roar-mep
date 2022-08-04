@@ -26,39 +26,41 @@ const clickStarTrial = {
   margin_horizontal: "inherit",
 };
 
+const videoPrefix = config.pseudoFont ? "pseudo" : "latin";
+
 /* define instructions trial */
 const introTrial = [{
-  stimulus: [videoContent.pseudoIntro],
+  stimulus: [videoContent[`${videoPrefix}Intro`]],
   ...kwargs,
 }, clickStarTrial];
 
 const postPracticeTrial = [{
-  stimulus: [videoContent.pseudoPostPractice],
+  stimulus: [videoContent[`${videoPrefix}PostPractice`]],
   ...kwargs,
 }, clickStarTrial];
 
 const postTwoLetterBlockTrial = [{
-  stimulus: [videoContent.pseudoPost2Block],
+  stimulus: [videoContent[`${videoPrefix}Post2Block`]],
   ...kwargs,
 }, clickStarTrial];
 
 const postBlock1Trial = [{
-  stimulus: [videoContent.pseudoBlock1],
+  stimulus: [videoContent[`${videoPrefix}Block1`]],
   ...kwargs,
 }, clickStarTrial];
 
 const rewardAnimation1Trial = [{
-  stimulus: [videoContent.pseudoRewardAnimation1],
+  stimulus: [videoContent[`${videoPrefix}RewardAnimation1`]],
   ...kwargs,
 }, clickStarTrial];
 
 const rewardAnimation2Trial = [{
-  stimulus: [videoContent.pseudoRewardAnimation2],
+  stimulus: [videoContent[`${videoPrefix}RewardAnimation2`]],
   ...kwargs,
 }, clickStarTrial];
 
 const endTrial = [{
-  stimulus: [videoContent.pseudoEnd],
+  stimulus: [videoContent[`${videoPrefix}End`]],
   ...kwargs,
 }, clickStarTrial];
 
