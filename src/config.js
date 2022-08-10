@@ -10,12 +10,29 @@ const taskVariant = urlParams.get("variant") || "default";
 const pid = urlParams.get("participant");
 const pseudoFont = urlParams.get("latinFont") !== "true";
 const redirectTo = urlParams.get("redirectTo") || "refresh";
+const pipeline = urlParams.get("pipeline") || "rc";
 
 const redirect = () => {
   if (redirectTo === 'refresh') {
     window.location.reload();
-  } else {
-    window.location.href = pseudoFont ? "https://reading.stanford.edu/?g=1059&c=1" : "https://reading.stanford.edu/?g=1058&c=1";
+  } else if (pseudoFont) {
+    if (pipeline === "rc") {
+      window.location.href = "https://reading.stanford.edu/?g=1084&c=1";
+    } else if (pipeline === "multitudes") {
+      window.location.reload();
+    } else if (pipeline === "ucsfdc") {
+      window.location.href = "https://reading.stanford.edu?g=1059&c=1";
+    }
+  }
+
+  // If we get to here, then pseudoFont is false
+  if (pipeline === "rc") {
+    // TODO: Need a valid redirect url for this case.
+    // window.location.href = "https://reading.stanford.edu/?g=1084&c=1";
+  } else if (pipeline === "multitudes") {
+    window.location.reload();
+  } else if (pipeline === "ucsfdc") {
+    window.location.href = "https://reading.stanford.edu?g=1058&c=1";
   }
 };
 
@@ -25,7 +42,7 @@ function configTaskInfo() {
     taskInfo = {
       taskId: "mep",
       taskName: "Multiple element processing",
-      variantName: `${userMode}-${pseudoFont ? "pseudo" : "latin"}`,
+      variantName: `${pseudoFont ? "pseudo" : "letters"}-${pipeline}`,
       taskDescription: "This is a task measuring the automaticity of single character recognition.",
       variantDescription:
           "This variant uses one two-element block, two four-element blocks, and two six-element blocks.",
