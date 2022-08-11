@@ -22,17 +22,23 @@ const redirect = () => {
       window.location.reload();
     } else if (pipeline === "ucsfdc") {
       window.location.href = "https://reading.stanford.edu?g=1059&c=1";
+    } else if (pipeline === "school") {
+      // TODO: Insert redirect URL for schools
+      window.location.href = "https://reading.stanford.edu?g=XXXX&c=1";
     }
-  }
-
-  // If we get to here, then pseudoFont is false
-  if (pipeline === "rc") {
-    // TODO: Need a valid redirect url for this case.
-    // window.location.href = "https://reading.stanford.edu/?g=1084&c=1";
-  } else if (pipeline === "multitudes") {
-    window.location.reload();
-  } else if (pipeline === "ucsfdc") {
-    window.location.href = "https://reading.stanford.edu?g=1058&c=1";
+  } else {
+    // eslint-disable-next-line no-lonely-if
+    if (pipeline === "rc") {
+      // TODO: Insert redirect URL for RC latin
+      window.location.href = "https://reading.stanford.edu/?g=XXXX&c=1";
+    } else if (pipeline === "multitudes") {
+      window.location.reload();
+    } else if (pipeline === "ucsfdc") {
+      window.location.href = "https://reading.stanford.edu?g=1058&c=1";
+    } else if (pipeline === "school") {
+      // TODO: Insert redirect URL for schools latin
+      window.location.href = "https://reading.stanford.edu?g=XXXX&c=1";
+    }
   }
 };
 
