@@ -23,8 +23,7 @@ const redirect = () => {
     } else if (pipeline === "ucsfdc") {
       window.location.href = "https://reading.stanford.edu?g=1059&c=1";
     } else if (pipeline === "school") {
-      // TODO: Insert redirect URL for schools
-      window.location.href = "https://reading.stanford.edu?g=XXXX&c=1";
+      window.location.href = "https://reading.stanford.edu/?g=1095&c=1";
     }
   } else {
     // eslint-disable-next-line no-lonely-if
