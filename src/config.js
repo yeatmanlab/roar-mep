@@ -28,12 +28,12 @@ const redirect = () => {
   } else {
     // eslint-disable-next-line no-lonely-if
     if (pipeline === "rc") {
-      // TODO: Insert redirect URL for RC latin
-      window.location.href = "https://reading.stanford.edu/?g=XXXX&c=1";
+      window.location.href = "https://reading.stanford.edu?g=1058&c=1";
     } else if (pipeline === "multitudes") {
       window.location.reload();
     } else if (pipeline === "ucsfdc") {
-      window.location.href = "https://reading.stanford.edu?g=1058&c=1";
+      // TODO: Insert redirect URL for RC latin
+      window.location.href = "https://reading.stanford.edu/?g=XXXX&c=1";
     } else if (pipeline === "school") {
       // TODO: Insert redirect URL for schools latin
       window.location.href = "https://reading.stanford.edu?g=XXXX&c=1";
