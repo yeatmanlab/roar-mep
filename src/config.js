@@ -9,7 +9,7 @@ const userMode = urlParams.get("mode") || "default";
 const taskVariant = urlParams.get("variant") || "default";
 const pid = urlParams.get("participant");
 const pseudoFont = urlParams.get("latinFont") !== "true";
-const redirectTo = urlParams.get("redirectTo") || "refresh";
+const redirectTo = urlParams.get("redirectTo") || null;
 const pipeline = urlParams.get("pipeline") || "rc";
 
 const redirect = () => {
