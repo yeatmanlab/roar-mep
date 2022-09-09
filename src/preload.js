@@ -10,20 +10,29 @@ import feedbackCorrect from "./assets/audio/feedbackCorrect.mp3";
 import feedbackIncorrect from "./assets/audio/feedbackIncorrect.mp3";
 
 // Video files
-import pseudoBlock1 from "./assets/video/pseudoBlock1.mp4";
-import pseudoEnd from "./assets/video/pseudoEnd.mp4";
-import pseudoIntro from "./assets/video/pseudoIntro.mp4";
-import pseudoPost2Block from "./assets/video/pseudoPost2Block.mp4";
-import pseudoPostPractice from "./assets/video/pseudoPostPractice.mp4";
-import pseudoRewardAnimation1 from "./assets/video/pseudoRewardAnimation1.mp4";
-import pseudoRewardAnimation2 from "./assets/video/pseudoRewardAnimation2.mp4";
-import latinBlock1 from "./assets/video/latinBlock1.mp4";
-import latinEnd from "./assets/video/latinEnd.mp4";
-import latinIntro from "./assets/video/latinIntro.mp4";
-import latinPost2Block from "./assets/video/latinPost2Block.mp4";
-import latinPostPractice from "./assets/video/latinPostPractice.mp4";
-import latinRewardAnimation1 from "./assets/video/latinRewardAnimation1.mp4";
-import latinRewardAnimation2 from "./assets/video/latinRewardAnimation2.mp4";
+// English language versions
+import pseudoBlock1En from "./assets/video/en/pseudoBlock1.mp4";
+import pseudoEndEn from "./assets/video/en/pseudoEnd.mp4";
+import pseudoIntroEn from "./assets/video/en/pseudoIntro.mp4";
+import pseudoPost2BlockEn from "./assets/video/en/pseudoPost2Block.mp4";
+import pseudoPostPracticeEn from "./assets/video/en/pseudoPostPractice.mp4";
+import pseudoRewardAnimation1En from "./assets/video/en/pseudoRewardAnimation1.mp4";
+import pseudoRewardAnimation2En from "./assets/video/en/pseudoRewardAnimation2.mp4";
+import latinBlock1En from "./assets/video/en/latinBlock1.mp4";
+import latinEndEn from "./assets/video/en/latinEnd.mp4";
+import latinIntroEn from "./assets/video/en/latinIntro.mp4";
+import latinPost2BlockEn from "./assets/video/en/latinPost2Block.mp4";
+import latinPostPracticeEn from "./assets/video/en/latinPostPractice.mp4";
+import latinRewardAnimation1En from "./assets/video/en/latinRewardAnimation1.mp4";
+import latinRewardAnimation2En from "./assets/video/en/latinRewardAnimation2.mp4";
+// Spanish language versions
+import pseudoBlock1Es from "./assets/video/es/pseudoBlock1Es.mp4";
+import pseudoEndEs from "./assets/video/es/pseudoEndEs.mp4";
+import pseudoIntroEs from "./assets/video/es/pseudoIntroEs.mp4";
+import pseudoPost2BlockEs from "./assets/video/es/pseudoPost2BlockEs.mp4";
+import pseudoPostPracticeEs from "./assets/video/es/pseudoPostPracticeEs.mp4";
+import pseudoRewardAnimation1Es from "./assets/video/es/pseudoRewardAnimation1Es.mp4";
+import pseudoRewardAnimation2Es from "./assets/video/es/pseudoRewardAnimation2Es.mp4";
 
 function importAll(r) {
   const assets = {};
@@ -59,30 +68,59 @@ const preload_character_trials = {
 };
 
 let videoBlocks;
-if (config.pseudoFont) {
-  videoBlocks = {
-    1: [
-      pseudoBlock1,
-      pseudoEnd,
-      pseudoIntro,
-      pseudoPost2Block,
-      pseudoPostPractice,
-      pseudoRewardAnimation1,
-      pseudoRewardAnimation2,
-    ],
-  };
+if (config.language === "en") {
+  if (config.pseudoFont) {
+    videoBlocks = {
+      1: [
+        pseudoBlock1En,
+        pseudoEndEn,
+        pseudoIntroEn,
+        pseudoPost2BlockEn,
+        pseudoPostPracticeEn,
+        pseudoRewardAnimation1En,
+        pseudoRewardAnimation2En,
+      ],
+    };
+  } else {
+    videoBlocks = {
+      1: [
+        latinBlock1En,
+        latinEndEn,
+        latinIntroEn,
+        latinPost2BlockEn,
+        latinPostPracticeEn,
+        latinRewardAnimation1En,
+        latinRewardAnimation2En,
+      ],
+    };
+  }
 } else {
-  videoBlocks = {
-    1: [
-      latinBlock1,
-      latinEnd,
-      latinIntro,
-      latinPost2Block,
-      latinPostPractice,
-      latinRewardAnimation1,
-      latinRewardAnimation2,
-    ],
-  };
+  // eslint-disable-next-line no-lonely-if
+  if (config.pseudoFont) {
+    videoBlocks = {
+      1: [
+        pseudoBlock1Es,
+        pseudoEndEs,
+        pseudoIntroEs,
+        pseudoPost2BlockEs,
+        pseudoPostPracticeEs,
+        pseudoRewardAnimation1Es,
+        pseudoRewardAnimation2Es,
+      ],
+    };
+  } else {
+    videoBlocks = {
+      1: [
+        // latinBlock1Es,
+        // latinEndEs,
+        // latinIntroEs,
+        // latinPost2BlockEs,
+        // latinPostPracticeEs,
+        // latinRewardAnimation1Es,
+        // latinRewardAnimation2Es,
+      ],
+    };
+  }
 }
 
 const imageBlocks = {

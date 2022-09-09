@@ -9,6 +9,7 @@ const userMode = urlParams.get("mode") || "default";
 const taskVariant = urlParams.get("variant") || "default";
 const pid = urlParams.get("participant");
 const pseudoFont = urlParams.get("latinFont") !== "true";
+const language = urlParams.get("language").toLowerCase() || "en";
 const redirectTo = urlParams.get("redirectTo") || null;
 const pipeline = urlParams.get("pipeline") || "rc";
 
@@ -110,6 +111,7 @@ export const config = {
     maskDuration: 100, // milliseconds
   },
   pseudoFont: pseudoFont,
+  language: language,
   /* record date */
   startTime: new Date(),
   urlParams: urlParams,
