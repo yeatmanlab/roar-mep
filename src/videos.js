@@ -27,41 +27,40 @@ const clickStarTrial = {
 };
 
 const videoPrefix = config.pseudoFont ? "pseudo" : "latin";
-const videoSuffix = config.language === "en" ? "En" : "Es";
 
 /* define instructions trial */
 const introTrial = [{
-  stimulus: [videoContent[`${videoPrefix}Intro${videoSuffix}`]],
+  stimulus: [videoContent[`${videoPrefix}Intro`]],
   ...kwargs,
 }, clickStarTrial];
 
 const postPracticeTrial = [{
-  stimulus: [videoContent[`${videoPrefix}PostPractice${videoSuffix}`]],
+  stimulus: [videoContent[`${videoPrefix}PostPractice`]],
   ...kwargs,
 }, clickStarTrial];
 
 const postTwoLetterBlockTrial = [{
-  stimulus: [videoContent[`${videoPrefix}Post2Block${videoSuffix}`]],
+  stimulus: [videoContent[`${videoPrefix}Post2Block`]],
   ...kwargs,
 }, clickStarTrial];
 
 const postBlock1Trial = [{
-  stimulus: [videoContent[`${videoPrefix}Block1${videoSuffix}`]],
+  stimulus: [videoContent[`${videoPrefix}Block1`]],
   ...kwargs,
 }, clickStarTrial];
 
 const rewardAnimation1Trial = [{
-  stimulus: [videoContent[`${videoPrefix}RewardAnimation1${videoSuffix}`]],
+  stimulus: [videoContent[`${videoPrefix}RewardAnimation1`]],
   ...kwargs,
 }, clickStarTrial];
 
 const rewardAnimation2Trial = [{
-  stimulus: [videoContent[`${videoPrefix}RewardAnimation2${videoSuffix}`]],
+  stimulus: [videoContent[`${videoPrefix}RewardAnimation2`]],
   ...kwargs,
 }, clickStarTrial];
 
 const endTrial = [{
-  stimulus: [videoContent[`${videoPrefix}End${videoSuffix}`]],
+  stimulus: [videoContent[`${videoPrefix}End`]],
   ...kwargs,
 }, clickStarTrial];
 
