@@ -10,7 +10,7 @@ import feedbackCorrect from "./assets/audio/feedbackCorrect.mp3";
 import feedbackIncorrect from "./assets/audio/feedbackIncorrect.mp3";
 
 // Video files
-// English language versions
+// English language versions 
 import pseudoBlock1En from "./assets/video/en/pseudoBlock1.mp4";
 import pseudoEndEn from "./assets/video/en/pseudoEnd.mp4";
 import pseudoIntroEn from "./assets/video/en/pseudoIntro.mp4";
@@ -33,6 +33,13 @@ import pseudoPost2BlockEs from "./assets/video/es/pseudoPost2BlockEs.mp4";
 import pseudoPostPracticeEs from "./assets/video/es/pseudoPostPracticeEs.mp4";
 import pseudoRewardAnimation1Es from "./assets/video/es/pseudoRewardAnimation1Es.mp4";
 import pseudoRewardAnimation2Es from "./assets/video/es/pseudoRewardAnimation2Es.mp4";
+import latinBlock1Es from "./assets/video/es/latinBlock1Es.mp4";
+import latinEndEs from "./assets/video/es/latinEndEs.mp4";
+import latinIntroEs from "./assets/video/es/latinIntroEs.mp4";
+import latinPost2BlockEs from "./assets/video/es/latinPost2BlockEs.mp4";
+import latinPostPracticeEs from "./assets/video/es/latinPostPracticeEs.mp4";
+import latinRewardAnimation1Es from "./assets/video/es/latinRewardAnimation1Es.mp4";
+import latinRewardAnimation2Es from "./assets/video/es/latinRewardAnimation2Es.mp4";
 
 function importAll(r) {
   const assets = {};
@@ -51,7 +58,7 @@ const preloadObj2contentObj = (preloadObj) => {
   return contentArray.reduce((o, val) => {
     const pathSplit = val.split("/");
     const fileName = pathSplit[pathSplit.length - 1];
-    const key = fileName.split(".")[0];
+    const key = fileName.split(".")[0].replace(/Es$/, "");
     // eslint-disable-next-line no-param-reassign
     o[camelCase(key)] = val;
     return o;
@@ -111,17 +118,19 @@ if (config.language === "en") {
   } else {
     videoBlocks = {
       1: [
-        // latinBlock1Es,
-        // latinEndEs,
-        // latinIntroEs,
-        // latinPost2BlockEs,
-        // latinPostPracticeEs,
-        // latinRewardAnimation1Es,
-        // latinRewardAnimation2Es,
+         latinBlock1Es,
+         latinEndEs,
+         latinIntroEs,
+         latinPost2BlockEs,
+         latinPostPracticeEs,
+         latinRewardAnimation1Es,
+         latinRewardAnimation2Es,
       ],
     };
   }
 }
+
+console.log(videoBlocks);
 
 const imageBlocks = {
   2: [
@@ -141,6 +150,8 @@ const audioBlocks = {
 export const imgContent = preloadObj2contentObj(imageBlocks);
 export const videoContent = preloadObj2contentObj(videoBlocks);
 export const audioContent = preloadObj2contentObj(audioBlocks);
+
+console.log(videoContent);
 
 const preload_video_trials = Object.entries(videoBlocks).map(([idx, img_block]) => ({
   type: jsPsychPreload,
