@@ -130,8 +130,6 @@ if (config.language === "en") {
   }
 }
 
-console.log(videoBlocks);
-
 const imageBlocks = {
   2: [
     star,
@@ -150,8 +148,6 @@ const audioBlocks = {
 export const imgContent = preloadObj2contentObj(imageBlocks);
 export const videoContent = preloadObj2contentObj(videoBlocks);
 export const audioContent = preloadObj2contentObj(audioBlocks);
-
-console.log(videoContent);
 
 const preload_video_trials = Object.entries(videoBlocks).map(([idx, img_block]) => ({
   type: jsPsychPreload,
