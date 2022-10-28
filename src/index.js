@@ -78,7 +78,7 @@ const getPid = {
     },
   ],
   on_finish: (data) => {
-    store.session.set("pid", [config.schoolId, config.classId, store.session("pid")].join("-"));
+    store.session.set("pid", [data.response.SchoolId, data.response.ClassId, data.response.pid].join("-"));
     config.classId = data.response.ClassId;
     config.schoolId = data.response.SchoolId;
   },
