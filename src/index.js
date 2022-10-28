@@ -12,6 +12,9 @@ import "regenerator-runtime/runtime";
 import { RoarFirekit } from "@bdelab/roar-firekit";
 import { roarConfig } from "./firebaseConfig";
 
+// Session storage
+import store from "store2";
+
 // Local modules
 import {
   jsPsych,
@@ -30,9 +33,9 @@ import "./css/game_v4.css";
 let firekit;
 const timeline = [];
 
-if (config.pid !== null) {
+if (store.session("pid") !== null) {
   const userInfo = {
-    id: config.pid,
+    id: store.session("pid"),
     studyId: config.sessionId,
     classId: config.classId || null,
     schoolId: config.schoolId || null,
@@ -75,7 +78,7 @@ const getPid = {
     },
   ],
   on_finish: (data) => {
-    config.pid = data.response.pid;
+    store.session.set("pid", [config.schoolId, config.classId, store.session("pid")].join("-"));
     config.classId = data.response.ClassId;
     config.schoolId = data.response.SchoolId;
   },
@@ -84,11 +87,11 @@ const getPid = {
 const ifGetPid = {
   timeline: [getPid],
   conditional_function: function () {
-    return config.pid === null;
+    return store.session("pid") === null;
   },
   on_timeline_finish: async () => {
     const userInfo = {
-      id: [config.schoolId, config.classId, config.pid].join("-"),
+      id: store.session("pid"),
       studyId: config.sessionId,
       classId: config.classId || null,
       schoolId: config.schoolId || null,

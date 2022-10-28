@@ -1,6 +1,11 @@
 import jsPsychAudioKeyboardResponse from "@jspsych/plugin-audio-keyboard-response";
 import jsPsychHtmlButtonResponse from "@jspsych/plugin-html-button-response";
 import jsPsychHtmlKeyboardResponse from "@jspsych/plugin-html-keyboard-response";
+
+// Session storage
+import store from "store2";
+
+// Local imports
 import { config, jsPsych } from "./config";
 import { nStimuli } from "./corpus";
 import { audioContent, characters } from "./preload";
@@ -91,13 +96,14 @@ export const makeRoarTrial = ({
       cueLocationIdx: stimulus.cueLocationIdx,
       correctResponse: stimulus.correctResponse,
       correctResponseIdx: stimulus.correctResponseIdx,
-      pid: config.pid,
       urlQueryString: config.urlParams.toString(),
     },
     margin_vertical: "inherit",
     margin_horizontal: "inherit",
     on_finish: function (data) {
       updateProgressBar();
+      console.log(store.session("pid"));
+      data.pid = store.session("pid");
       // eslint-disable-next-line no-param-reassign
       data.correct = data.response === stimulus.correctResponseIdx;
     },

@@ -1,17 +1,20 @@
 // import { QuestCreate } from "jsQUEST";
 import { initJsPsych } from "jspsych";
 import Papa from "papaparse";
+import store from "store2";
 
 /* set user mode */
 const queryString = new URL(window.location).search;
 const urlParams = new URLSearchParams(queryString);
 const userMode = urlParams.get("mode") || "default";
 const taskVariant = urlParams.get("variant") || "default";
-const pid = urlParams.get("participant");
+const pid = urlParams.get("participant") || null;
 const pseudoFont = urlParams.get("latinFont") !== "true";
 const language = urlParams.get("language") || "en";
 const redirectTo = urlParams.get("redirectTo") || null;
 const pipeline = urlParams.get("pipeline") || "rc";
+
+store.session.set("pid", pid);
 
 const redirect = () => {
   if (redirectTo === 'refresh') {
@@ -95,7 +98,6 @@ export const arrSum = (arr) => arr.reduce((a, b) => a + b, 0);
 
 export const config = {
   userMode: userMode,
-  pid: pid,
   taskVariant: taskVariant,
   sessionId: `${taskVariant}-${userMode}-${pseudoFont ? "pseudo" : "latin"}`,
   userMetadata: {},
