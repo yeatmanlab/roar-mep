@@ -59,6 +59,17 @@ export const makeRoarTrial = ({
   };
   timeline.push(fixationTrial);
 
+  let start_time = undefined;
+  let recorded_stimulus_duration = undefined;
+  const record_stimulus_duration = () => {
+    if (!start_time) {    // on_start callback
+      start_time = new Date();
+    } else {              // on_finish callback
+      recorded_stimulus_duration = new Date() - start_time;
+      start_time = undefined;
+    }
+  };
+
   const stimulusTrial = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: buildStimulusHtml(stimulus.source),
@@ -68,6 +79,8 @@ export const makeRoarTrial = ({
     data: {
       task: "stimulus",
     },
+    on_start: record_stimulus_duration,
+    on_finish: record_stimulus_duration
   };
   timeline.push(stimulusTrial);
 
@@ -106,6 +119,7 @@ export const makeRoarTrial = ({
       data.pid = store.session("pid");
       // eslint-disable-next-line no-param-reassign
       data.correct = data.response === stimulus.correctResponseIdx;
+      data.recorded_stimulus_duration = recorded_stimulus_duration;
     },
   };
 
