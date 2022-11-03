@@ -3,7 +3,8 @@ import { arrSum, readCSV } from "./config";
 
 // Word corpus imports
 import practiceCorpus from "./corpora/practice_block.csv";
-import nchar2Corpus from "./corpora/nchar-2_block-1.csv";
+import nchar2CorpusA from "./corpora/nchar-2_block-1.csv";
+import nchar2CorpusB from "./corpora/nchar-2_block-2.csv";
 import nchar4CorpusA from "./corpora/nchar-4_block-1.csv";
 import nchar4CorpusB from "./corpora/nchar-4_block-2.csv";
 import nchar6CorpusA from "./corpora/nchar-6_block-1.csv";
@@ -32,7 +33,8 @@ const loadAll = (assets) =>
 
 const csvPromises = {
   practice: readCSV(practiceCorpus),
-  n2: readCSV(nchar2Corpus),
+  n2a: readCSV(nchar2CorpusA),
+  n2b: readCSV(nchar2CorpusB),
   n4a: readCSV(nchar4CorpusA),
   n4b: readCSV(nchar4CorpusB),
   n6a: readCSV(nchar6CorpusA),
