@@ -184,15 +184,18 @@ const pushMEPTrials = (corpus, isPractice) => {
 timeline.push(...videoTrials.intro);
 pushMEPTrials(corpora.practice, true);
 timeline.push(...videoTrials.postPractice);
-pushMEPTrials(corpora.n2, false);
+pushMEPTrials(corpora.n2a, false);
 timeline.push(...videoTrials.postTwoLetterBlock);
+pushMEPTrials(corpora.n2b, false);
+timeline.push(...videoTrials.postBlock1);
 pushMEPTrials(corpora.n4a, false);
 timeline.push(...videoTrials.rewardAnimation1);
 pushMEPTrials(corpora.n4b, false);
-timeline.push(...videoTrials.postBlock1);
-pushMEPTrials(corpora.n6a, false);
-timeline.push(...videoTrials.rewardAnimation2);
-pushMEPTrials(corpora.n6b, false);
+// Maha - commented this out to see if this is sufficient to not have the 6 letter blocks 
+// timeline.push(...videoTrials.postBlock1);
+// pushMEPTrials(corpora.n6a, false);
+// timeline.push(...videoTrials.rewardAnimation2);
+// pushMEPTrials(corpora.n6b, false);
 timeline.push(...videoTrials.end);
 
 const exit_fullscreen = {
