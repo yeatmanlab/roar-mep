@@ -7,8 +7,6 @@ import nchar2CorpusA from "./corpora/nchar-2_block-1.csv";
 import nchar2CorpusB from "./corpora/nchar-2_block-2.csv";
 import nchar4CorpusA from "./corpora/nchar-4_block-1.csv";
 import nchar4CorpusB from "./corpora/nchar-4_block-2.csv";
-import nchar6CorpusA from "./corpora/nchar-6_block-1.csv";
-import nchar6CorpusB from "./corpora/nchar-6_block-2.csv";
 
 // addAsset :: (k, Promise a) -> Promise (k, a)
 const addAsset = ([name, assetPromise]) =>
@@ -18,27 +16,12 @@ const addAsset = ([name, assetPromise]) =>
 const loadAll = (assets) =>
   Promise.all(Object.entries(assets).map(addAsset)).then(Object.fromEntries);
 
-// function shuffle(array) {
-//   const shuffledArray = [...array];
-//   for (let i = shuffledArray.length - 1; i > 0; i--) {
-//     const j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
-
-//     // swap elements array[i] and array[j]
-//     // use "destructuring assignment" syntax
-//     // eslint-disable-next-line no-param-reassign
-//     [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-//   }
-//   return shuffledArray;
-// }
-
 const csvPromises = {
   practice: readCSV(practiceCorpus),
   n2a: readCSV(nchar2CorpusA),
   n2b: readCSV(nchar2CorpusB),
   n4a: readCSV(nchar4CorpusA),
   n4b: readCSV(nchar4CorpusB),
-  n6a: readCSV(nchar6CorpusA),
-  n6b: readCSV(nchar6CorpusB),
 };
 
 const csvAssets = await loadAll(csvPromises);
