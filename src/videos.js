@@ -12,7 +12,7 @@ const kwargs = {
   response_allowed_while_playing: config.testingOnly,
 };
 
-const buttonHtml = `<button class="star-center transparent"><img style="width: 350px; height: 350px;" src="${imgContent.star}" /></button>`;
+const buttonHtml = `<button class="star-center transparent"><img draggable="false" style="width: 350px; height: 350px;" src="${imgContent.star}" /></button>`;
 const clickStarTrial = {
   type: jsPsychImageButtonResponse,
   stimulus: [imgContent.advance],

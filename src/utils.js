@@ -10,7 +10,7 @@ import { config, jsPsych } from "./config";
 import { nStimuli } from "./corpus";
 import { audioContent, characters } from "./preload";
 
-const buttonHtml = '<button class="jspsych-btn" type="button"><img src="%choice%" width="100%" height="100%"/></button>';
+const buttonHtml = '<button class="jspsych-btn" type="button"><img draggable="false" src="%choice%" width="100%" height="100%"/></button>';
 
 const updateProgressBar = () => {
   const curr_progress_bar_value = jsPsych.getProgressBarCompleted();
@@ -20,7 +20,7 @@ const updateProgressBar = () => {
 export const buildStimulusHtml = (stimuli) => {
   let outputHtml = '<div class="center">';
   stimuli.forEach((stimulus) => {
-    outputHtml += `<img src="${stimulus}" class="mep-stimulus"/>`;
+    outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus"/>`;
   });
   outputHtml += "</div>";
   return outputHtml;
@@ -32,9 +32,9 @@ export const buildLocationCueHtml = (stimLength, correctResponseIdx) => {
   stimuli.splice(Math.floor(stimLength / 2), 1, characters["plus.svg"]);
   stimuli.forEach((stimulus, index) => {
     if (index === correctResponseIdx) {
-      outputHtml += `<img src="${stimulus}" class="mep-stimulus bottom-border-blue"/>`;
+      outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus bottom-border-blue"/>`;
     } else {
-      outputHtml += `<img src="${stimulus}" class="mep-stimulus"/>`;
+      outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus"/>`;
     }
   });
   outputHtml += "</div>";
