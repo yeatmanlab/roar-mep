@@ -3,17 +3,18 @@
 
 // jsPsych imports
 import jsPsychFullScreen from "@jspsych/plugin-fullscreen";
+import jsPsychCallFunction from "@jspsych/plugin-call-function";
 import surveyText from '@jspsych/plugin-survey-text';
 
 // Import necessary for async in the top level of the experiment script
 import "regenerator-runtime/runtime";
 
+// Session storage
+import store from "store2";
+
 // Firebase imports
 import { RoarFirekit } from "@bdelab/roar-firekit";
 import { roarConfig } from "./firebaseConfig";
-
-// Session storage
-import store from "store2";
 
 // Local modules
 import {
@@ -110,6 +111,25 @@ const ifGetPid = {
 
 timeline.push(ifGetPid);
 
+timeline.push({
+  type: jsPsychCallFunction,
+  async: true,
+  func: function (done) {
+    const display_element = document.getElementById('jspsych-content');
+
+    display_element.innerHTML = "<p>Click on the screen to start...</p>";
+    // var init_button = display_element.querySelector('#safari_audio_init');
+
+    function init_audio_files() {
+      jsPsych.pluginAPI.audioContext();
+      done();
+    }
+
+    document.addEventListener('touchstart', init_audio_files, { once: true });
+    document.addEventListener('click', init_audio_files, { once: true });
+  },
+});
+
 const enter_fullscreen = {
   type: jsPsychFullScreen,
   fullscreen_mode: true,
@@ -202,11 +222,6 @@ const if4ElementBlocks = {
   conditional_function: function () {
     // get the data from the previous trials,
     // and check whether we should continue
-    const trials = jsPsych.data.get();
-    console.log(trials);
-
-    console.log(jsPsych.data.get().filter({ correct: true, task: "test_response" }).trials.length);
-
     const correctTrials = jsPsych.data.get().filter({ correct: true });
     return correctTrials.trials.length > 4;
   },
