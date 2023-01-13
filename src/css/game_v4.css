@@ -436,6 +436,10 @@ p  {
 	border-bottom-color: blue !important;
 }
 
+.bottom-border-red {
+	border-bottom-color: red !important;
+}
+
 #jspsych-html-button-response-stimulus {
 	margin-bottom: 25vw;
 }

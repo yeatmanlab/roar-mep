@@ -186,6 +186,9 @@ const pushMEPTrials = (corpus, isPractice) => {
       choicesString: choicesString,
       stimulusDuration: config[timingKey].stimulusDuration,
       cueDuration: config[timingKey].maskDuration,
+      preCueDuration: config[timingKey].preCueDuration,
+      preCueValidity: "both",
+      cueToTargetInterval: 50, // milliseconds
       cueLocationIdx: cueLocationIdx,
       correctResponse: stimulus.correctResponse,
       correctResponseIdx: correctResponseIdx,
