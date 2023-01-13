@@ -179,6 +179,12 @@ const pushMEPTrials = (corpus, isPractice) => {
     );
     const correctResponseIdx = choicesString.indexOf(stimulus.correctResponse);
     const timingKey = isPractice ? "practiceTiming" : "timing";
+    const cueLocations = {
+      1: "left",
+      2: "right",
+      7: "both",
+    };
+
     const inputStimulus = {
       stimulusString: stimulusString,
       source: stimuli,
@@ -187,8 +193,8 @@ const pushMEPTrials = (corpus, isPractice) => {
       stimulusDuration: config[timingKey].stimulusDuration,
       cueDuration: config[timingKey].maskDuration,
       preCueDuration: config[timingKey].preCueDuration,
-      preCueValidity: "both",
-      cueToTargetInterval: 50, // milliseconds
+      preCueLocation: stimulus.preCueLocation ? cueLocations[stimulus.preCueLocation] : null,
+      cueToTargetInterval: stimulus.cueTargetISI ? stimulus.cueTargetISI * 1000 : null,
       cueLocationIdx: cueLocationIdx,
       correctResponse: stimulus.correctResponse,
       correctResponseIdx: correctResponseIdx,

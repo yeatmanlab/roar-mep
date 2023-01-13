@@ -26,12 +26,12 @@ export const buildStimulusHtml = (stimuli) => {
   return outputHtml;
 };
 
-export const buildLocationCueHtml = (stimLength, correctResponseIdx, preCueValidity = null) => {
+export const buildLocationCueHtml = (stimLength, correctResponseIdx, preCueLocation = null) => {
   let outputHtml = '<div class="center">';
   const stimuli = Array(stimLength).fill(characters["white.svg"]);
   stimuli.splice(Math.floor(stimLength / 2), 1, characters["plus.svg"]);
-  // If preCueValidity is null, assume this is the post stimulus location cue trial
-  if (preCueValidity === null) {
+  // If preCueLocation is null, assume this is the post stimulus location cue trial
+  if (preCueLocation === null) {
     stimuli.forEach((stimulus, index) => {
       if (index === correctResponseIdx) {
         outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus bottom-border-blue"/>`;
@@ -39,7 +39,7 @@ export const buildLocationCueHtml = (stimLength, correctResponseIdx, preCueValid
         outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus"/>`;
       }
     });
-  } else if (preCueValidity === "left") {
+  } else if (preCueLocation === "left") {
     stimuli.forEach((stimulus, index) => {
       if (index < stimLength / 2) {
         outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus bottom-border-red"/>`;
@@ -47,7 +47,7 @@ export const buildLocationCueHtml = (stimLength, correctResponseIdx, preCueValid
         outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus"/>`;
       }
     });
-  } else if (preCueValidity === "right") {
+  } else if (preCueLocation === "right") {
     stimuli.forEach((stimulus, index) => {
       // Here we condition upon greater than half, rather than greater than or
       // equal to because we incremented the length of the stimuli array above
@@ -58,7 +58,7 @@ export const buildLocationCueHtml = (stimLength, correctResponseIdx, preCueValid
         outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus"/>`;
       }
     });
-  } else if (preCueValidity === "both") {
+  } else if (preCueLocation === "both") {
     stimuli.forEach((stimulus, index) => {
       if (index !== Math.floor(stimLength / 2)) {
         outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus bottom-border-red"/>`;
@@ -92,7 +92,7 @@ export const makeRoarTrial = ({
   if (preCue) {
     const preCueTrial = {
       type: jsPsychHtmlKeyboardResponse,
-      stimulus: buildLocationCueHtml(stimulus.source.length, stimulus.cueLocationIdx, stimulus.preCueValidity,),
+      stimulus: buildLocationCueHtml(stimulus.source.length, stimulus.cueLocationIdx, stimulus.preCueLocation,),
       choices: "NO_KEYS",
       stimulus_duration: null,
       trial_duration: stimulus.preCueDuration,
