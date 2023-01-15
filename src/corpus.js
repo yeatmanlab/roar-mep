@@ -68,7 +68,9 @@ const transformCSV = (csvInput) => csvInput.reduce((accum, row) => {
     const newRow = {
       stimulus: row.string.slice(2, -2).toUpperCase().split(''),
       correctResponse: row.CxResp.toUpperCase(),
-      block: row.block,
+      block: row.blockNum || null,
+      preCueLocation: row.preCueLocation || null,
+      cueToTargetInterval: row.cueTargetISI || null,
     };
     accum.push(newRow);
   }
