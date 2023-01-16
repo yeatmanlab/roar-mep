@@ -3,10 +3,13 @@ import jsPsychImageButtonResponse from "@jspsych/plugin-image-button-response";
 import { config } from "./config";
 import { imgContent, videoContent } from "./preload";
 
+const isMobile = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
 const kwargs = {
   type: jsPsychVideoKeyboardResponse,
   choices: config.testingOnly ? "ALL_KEYS" : "NO_KEYS",
   trial_ends_after_video: true,
+  controls: isMobile(),
   width: 1238,
   height: 800,
   response_allowed_while_playing: config.testingOnly,
