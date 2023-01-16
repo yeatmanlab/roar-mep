@@ -41,7 +41,7 @@ export const buildLocationCueHtml = (stimLength, correctResponseIdx, preCueLocat
     });
   } else if (preCueLocation === "left") {
     stimuli.forEach((stimulus, index) => {
-      if (index < stimLength / 2) {
+      if (index < Math.floor(stimLength / 2)) {
         outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus bottom-border-red"/>`;
       } else {
         outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus"/>`;
@@ -52,7 +52,7 @@ export const buildLocationCueHtml = (stimLength, correctResponseIdx, preCueLocat
       // Here we condition upon greater than half, rather than greater than or
       // equal to because we incremented the length of the stimuli array above
       // by adding the plus sign.
-      if (index > stimLength / 2) {
+      if (index > Math.floor(stimLength / 2)) {
         outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus bottom-border-red"/>`;
       } else {
         outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus"/>`;
@@ -92,7 +92,11 @@ export const makeRoarTrial = ({
   if (preCue) {
     const preCueTrial = {
       type: jsPsychHtmlKeyboardResponse,
-      stimulus: buildLocationCueHtml(stimulus.source.length, stimulus.cueLocationIdx, stimulus.preCueLocation,),
+      stimulus: buildLocationCueHtml(
+        stimulus.source.length,
+        stimulus.cueLocationIdx,
+        stimulus.preCueLocation,
+      ),
       choices: "NO_KEYS",
       stimulus_duration: null,
       trial_duration: stimulus.preCueDuration,

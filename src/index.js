@@ -194,7 +194,7 @@ const pushMEPTrials = (corpus, isPractice) => {
       cueDuration: config[timingKey].maskDuration,
       preCueDuration: config[timingKey].preCueDuration,
       preCueLocation: stimulus.preCueLocation ? cueLocations[stimulus.preCueLocation] : null,
-      cueToTargetInterval: stimulus.cueTargetISI ? stimulus.cueTargetISI * 1000 : null,
+      cueToTargetInterval: stimulus.cueToTargetInterval,
       cueLocationIdx: cueLocationIdx,
       correctResponse: stimulus.correctResponse,
       correctResponseIdx: correctResponseIdx,
@@ -208,37 +208,64 @@ const pushMEPTrials = (corpus, isPractice) => {
       fixation,
       stimulus: inputStimulus,
       isPractice,
+      preCue: config.preCue,
     }));
   });
   return mepTimeline;
 };
 
-const fourElementBlocks = [];
-timeline.push(...videoTrials.intro);
-timeline.push(...pushMEPTrials(corpora.practice, true));
-timeline.push(...videoTrials.postPractice);
-timeline.push(...pushMEPTrials(corpora.n2a, false));
-timeline.push(...videoTrials.postTwoLetterBlock);
-timeline.push(...pushMEPTrials(corpora.n2b, false));
-fourElementBlocks.push(...videoTrials.postBlock1);
-fourElementBlocks.push(...pushMEPTrials(corpora.n4a, false, fourElementBlocks));
-fourElementBlocks.push(...videoTrials.rewardAnimation1);
-fourElementBlocks.push(...pushMEPTrials(corpora.n4b, false, fourElementBlocks));
+if (config.preCue) {
+  timeline.push(...videoTrials.intro);
+  timeline.push(...pushMEPTrials(corpora.practice, true));
+  timeline.push(...videoTrials.postPractice);
+  timeline.push(...pushMEPTrials(corpora.b1a, false));
+  timeline.push(...videoTrials.postTwoLetterBlock);
+  timeline.push(...pushMEPTrials(corpora.b1b, false));
+  timeline.push(...videoTrials.postTwoLetterBlock);
+  timeline.push(...pushMEPTrials(corpora.b2a, false));
+  timeline.push(...videoTrials.postTwoLetterBlock);
+  timeline.push(...pushMEPTrials(corpora.b2b, false));
+  timeline.push(...videoTrials.postTwoLetterBlock);
+  timeline.push(...pushMEPTrials(corpora.b3a, false));
+  timeline.push(...videoTrials.postTwoLetterBlock);
+  timeline.push(...pushMEPTrials(corpora.b3b, false));
+  timeline.push(...videoTrials.postTwoLetterBlock);
+  timeline.push(...pushMEPTrials(corpora.b4a, false));
+  timeline.push(...videoTrials.postTwoLetterBlock);
+  timeline.push(...pushMEPTrials(corpora.b4b, false));
+  timeline.push(...videoTrials.postTwoLetterBlock);
+  timeline.push(...pushMEPTrials(corpora.b5a, false));
+  timeline.push(...videoTrials.postTwoLetterBlock);
+  timeline.push(...pushMEPTrials(corpora.b5b, false));
+  timeline.push(...videoTrials.end);
+} else {
+  const fourElementBlocks = [];
+  timeline.push(...videoTrials.intro);
+  timeline.push(...pushMEPTrials(corpora.practice, true));
+  timeline.push(...videoTrials.postPractice);
+  timeline.push(...pushMEPTrials(corpora.n2a, false));
+  timeline.push(...videoTrials.postTwoLetterBlock);
+  timeline.push(...pushMEPTrials(corpora.n2b, false));
+  fourElementBlocks.push(...videoTrials.postBlock1);
+  fourElementBlocks.push(...pushMEPTrials(corpora.n4a, false, fourElementBlocks));
+  fourElementBlocks.push(...videoTrials.rewardAnimation1);
+  fourElementBlocks.push(...pushMEPTrials(corpora.n4b, false, fourElementBlocks));
 
-// Add a conditional timeline to terminate when accuracy is < 4/24 correct for the easy trials
-const if4ElementBlocks = {
-  timeline: fourElementBlocks,
-  conditional_function: function () {
-    // get the data from the previous trials,
-    // and check whether we should continue
-    const correctTrials = jsPsych.data.get().filter({ correct: true });
-    return correctTrials.trials.length > 4;
-  },
-};
+  // Add a conditional timeline to terminate when accuracy is < 4/24 correct for the easy trials
+  const if4ElementBlocks = {
+    timeline: fourElementBlocks,
+    conditional_function: function () {
+      // get the data from the previous trials,
+      // and check whether we should continue
+      const correctTrials = jsPsych.data.get().filter({ correct: true });
+      return correctTrials.trials.length > 4;
+    },
+  };
 
-timeline.push(if4ElementBlocks);
+  timeline.push(if4ElementBlocks);
 
-timeline.push(...videoTrials.end);
+  timeline.push(...videoTrials.end);
+}
 
 const exit_fullscreen = {
   type: jsPsychFullScreen,

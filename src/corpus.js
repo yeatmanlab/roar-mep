@@ -70,7 +70,7 @@ const transformCSV = (csvInput) => csvInput.reduce((accum, row) => {
       correctResponse: row.CxResp.toUpperCase(),
       block: row.blockNum || null,
       preCueLocation: row.preCueLocation || null,
-      cueToTargetInterval: row.cueTargetISI || null,
+      cueToTargetInterval: row.cueTargetISI !== undefined ? row.cueTargetISI * 1000 : null,
     };
     accum.push(newRow);
   }

@@ -13,7 +13,7 @@ const language = urlParams.get("language") || "en";
 const redirectTo = urlParams.get("redirectTo") || null;
 const pipeline = urlParams.get("pipeline") || "rc";
 const dots = urlParams.get("dots") || false;
-const preCue = dots ? true : urlParams.get("preCue") || false;
+const preCue = dots ? true : (urlParams.get("precue") === "true") || false;
 const pseudoFont = preCue ? false : urlParams.get("latinFont") !== "true";
 
 store.session.set("pid", pid);
