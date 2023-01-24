@@ -4,11 +4,13 @@ import { config } from "./config";
 import { imgContent, videoContent } from "./preload";
 
 const isMobile = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+console.log(`isMobile: ${isMobile()}`);
 
 const kwargs = {
   type: jsPsychVideoKeyboardResponse,
   choices: config.testingOnly ? "ALL_KEYS" : "NO_KEYS",
   trial_ends_after_video: true,
+  autoplay: !isMobile(),
   controls: isMobile(),
   width: 1238,
   height: 800,
