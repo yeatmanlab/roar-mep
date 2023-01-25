@@ -15,6 +15,10 @@ const kwargs = {
   width: 1238,
   height: 800,
   response_allowed_while_playing: config.testingOnly,
+  on_load: () => {
+    const video = document.getElementById("jspsych-video-keyboard-response-stimulus");
+    video.setAttribute("playsinline", "");
+  },
 };
 
 const buttonHtml = `<button class="star-center transparent"><img draggable="false" style="width: 350px; height: 350px;" src="${imgContent.star}" /></button>`;
