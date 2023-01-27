@@ -114,6 +114,7 @@ const enter_fullscreen = {
   type: jsPsychFullScreen,
   fullscreen_mode: true,
   message: `<div><h1>The experiment will switch to full screen mode. <br> Click the button to continue. </h1></div>`,
+  delay_after: 0,
 };
 
 const extend = (fn, code) =>
