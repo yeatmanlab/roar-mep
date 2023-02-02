@@ -165,7 +165,7 @@ const pushMEPTrials = (corpus, isPractice) => {
     let stimulusString = stimulus.stimulus.join("");
     stimulusString = `${stimulusString.substring(0, stimuli.length / 2)}+${stimulusString.substring(stimuli.length / 2)}`;
 
-    let choices = ["K", "D", "P", "F", "G", "H"];
+    let choices = config.precue ? ["B", "F", "H", "K", "L", "N", "P", "T", "V", "X", "Y", "Z"] : ["K", "D", "P", "F", "G", "H"];
     const choicesString = choices.join("");
     choices = choices.map(
       (choice) => characters[svgName(choice, config.pseudoFont)],
