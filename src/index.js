@@ -181,9 +181,9 @@ const pushMEPTrials = (corpus, isPractice) => {
       isPractice,
     }));
   });
-  return mepTimeline
+  return mepTimeline;
 };
-// 
+
 const fourElementBlocks = [];
 timeline.push(...videoTrials.intro);
 timeline.push(...pushMEPTrials(corpora.practice, true));
@@ -195,16 +195,22 @@ fourElementBlocks.push(...videoTrials.postBlock1);
 fourElementBlocks.push(...pushMEPTrials(corpora.n4a, false, fourElementBlocks));
 fourElementBlocks.push(...videoTrials.rewardAnimation1);
 fourElementBlocks.push(...pushMEPTrials(corpora.n4b, false, fourElementBlocks));
-//Adding a conditional timeline push so we terminate when accuracy is less than 4/24 correct for the easy trials
+
+// Add a conditional timeline to terminate when accuracy is < 4/24 correct for the easy trials
 const if4ElementBlocks = {
   timeline: fourElementBlocks,
-  conditional_function: function(){
+  conditional_function: function () {
     // get the data from the previous trials,
     // and check whether we should continue
-    const correctTrials = jsPsych.data.get().filter({correct: true});
-    return correctTrials.length > 4 
-  }
-}
+    const trials = jsPsych.data.get();
+    console.log(trials);
+
+    console.log(jsPsych.data.get().filter({ correct: true, task: "test_response" }).trials.length);
+
+    const correctTrials = jsPsych.data.get().filter({ correct: true });
+    return correctTrials.trials.length > 4;
+  },
+};
 
 timeline.push(if4ElementBlocks);
 

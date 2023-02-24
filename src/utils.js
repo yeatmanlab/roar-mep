@@ -115,10 +115,11 @@ export const makeRoarTrial = ({
     margin_horizontal: "inherit",
     on_finish: function (data) {
       updateProgressBar();
-      console.log(store.session("pid"));
+      // eslint-disable-next-line no-param-reassign
       data.pid = store.session("pid");
       // eslint-disable-next-line no-param-reassign
       data.correct = data.response === stimulus.correctResponseIdx;
+      // eslint-disable-next-line no-param-reassign
       data.recorded_stimulus_duration = recorded_stimulus_duration;
     },
   };
