@@ -257,7 +257,7 @@ if (config.preCue) {
     conditional_function: function () {
       // get the data from the previous trials,
       // and check whether we should continue
-      const correctTrials = jsPsych.data.get().filter({ correct: true });
+      const correctTrials = jsPsych.data.get().filter({ correct: true, task: "test_response" });
       return correctTrials.trials.length > 4;
     },
   };
