@@ -1,6 +1,6 @@
 import jsPsychVideoKeyboardResponse from "@jspsych/plugin-video-keyboard-response";
 import jsPsychImageButtonResponse from "@jspsych/plugin-image-button-response";
-import { config } from "./config";
+import { config, jsPsych } from "./config";
 import { imgContent, videoContent } from "./preload";
 
 const kwargs = {
@@ -62,6 +62,9 @@ const rewardAnimation2Trial = [{
 const endTrial = [{
   stimulus: [videoContent[`${videoPrefix}End`]],
   ...kwargs,
+  on_load: function () {
+    jsPsych.setProgressBar(1);
+  },
 }, clickStarTrial];
 
 const videoTrials = {

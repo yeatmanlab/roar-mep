@@ -8,12 +8,12 @@ import surveyText from '@jspsych/plugin-survey-text';
 // Import necessary for async in the top level of the experiment script
 import "regenerator-runtime/runtime";
 
+// Session storage
+import store from "store2";
+
 // Firebase imports
 import { RoarFirekit } from "@bdelab/roar-firekit";
 import { roarConfig } from "./firebaseConfig";
-
-// Session storage
-import store from "store2";
 
 // Local modules
 import {
@@ -193,8 +193,8 @@ timeline.push(...videoTrials.postTwoLetterBlock);
 timeline.push(...pushMEPTrials(corpora.n2b, false));
 fourElementBlocks.push(...videoTrials.postBlock1);
 fourElementBlocks.push(...pushMEPTrials(corpora.n4a, false, fourElementBlocks));
-fourElementBlocks.push(...videoTrials.rewardAnimation1);
-fourElementBlocks.push(...pushMEPTrials(corpora.n4b, false, fourElementBlocks));
+// fourElementBlocks.push(...videoTrials.rewardAnimation1);
+// fourElementBlocks.push(...pushMEPTrials(corpora.n4b, false, fourElementBlocks));
 
 // Add a conditional timeline to terminate when accuracy is < 4/24 correct for the easy trials
 const if4ElementBlocks = {
@@ -202,12 +202,7 @@ const if4ElementBlocks = {
   conditional_function: function () {
     // get the data from the previous trials,
     // and check whether we should continue
-    const trials = jsPsych.data.get();
-    console.log(trials);
-
-    console.log(jsPsych.data.get().filter({ correct: true, task: "test_response" }).trials.length);
-
-    const correctTrials = jsPsych.data.get().filter({ correct: true });
+    const correctTrials = jsPsych.data.get().filter({ correct: true, task: "test_response" });
     return correctTrials.trials.length > 4;
   },
 };

@@ -59,12 +59,12 @@ export const makeRoarTrial = ({
   };
   timeline.push(fixationTrial);
 
-  let start_time = undefined;
-  let recorded_stimulus_duration = undefined;
+  let start_time;
+  let recorded_stimulus_duration;
   const record_stimulus_duration = () => {
-    if (!start_time) {    // on_start callback
+    if (!start_time) { // on_start callback
       start_time = new Date();
-    } else {              // on_finish callback
+    } else { // on_finish callback
       recorded_stimulus_duration = new Date() - start_time;
       start_time = undefined;
     }
