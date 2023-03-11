@@ -113,6 +113,7 @@ export const makeRoarTrial = ({
     },
     margin_vertical: "inherit",
     margin_horizontal: "inherit",
+    response_ends_trial: true,
     on_finish: function (data) {
       updateProgressBar();
       // eslint-disable-next-line no-param-reassign
@@ -121,29 +122,16 @@ export const makeRoarTrial = ({
       data.correct = data.response === stimulus.correctResponseIdx;
       // eslint-disable-next-line no-param-reassign
       data.recorded_stimulus_duration = recorded_stimulus_duration;
+
+      if (data.correct) {
+        new Audio(audioContent.feedbackCorrect).play()
+      } else {
+        new Audio(audioContent.feedbackIncorrect).play()
+      }
     },
   };
 
   timeline.push(responseTrial);
-
-  const feedbackTrial = {
-    type: jsPsychAudioKeyboardResponse,
-    stimulus: function () {
-      const last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
-      if (last_trial_correct) {
-        return audioContent.feedbackCorrect;
-      }
-
-      return audioContent.feedbackIncorrect;
-    },
-    choices: "NO_KEYS",
-    trial_ends_after_audio: true,
-    data: {
-      task: "feedback",
-    },
-  };
-
-  timeline.push(feedbackTrial);
 
   return timeline;
 };
