@@ -214,7 +214,7 @@ timeline.push(...videoTrials.end);
 const exit_fullscreen = {
   type: jsPsychFullScreen,
   fullscreen_mode: false,
-  delay_after: 0,
+  delay_after: 450,
 };
 
 timeline.push(exit_fullscreen);
