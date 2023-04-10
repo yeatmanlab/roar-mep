@@ -208,13 +208,13 @@ const pushMEPTrials = (corpus, isPractice) => {
       fixation,
       stimulus: inputStimulus,
       isPractice,
-      preCue: config.preCue,
+      preCue: config.precue,
     }));
   });
   return mepTimeline;
 };
 
-if (config.preCue) {
+if (config.precue) {
   timeline.push(...videoTrials.intro);
   timeline.push(...pushMEPTrials(corpora.practice, true));
   timeline.push(...videoTrials.postPractice);

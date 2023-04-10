@@ -120,7 +120,7 @@ export const config = {
   /* record date */
   startTime: new Date(),
   urlParams: urlParams,
-  preCue: preCue,
+  precue: preCue,
 };
 
 export const jsPsych = initJsPsych({

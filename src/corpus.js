@@ -30,7 +30,7 @@ const loadAll = (assets) =>
 
 let csvPromises;
 
-if (config.preCue) {
+if (config.precue) {
   csvPromises = {
     practice: readCSV(preCuePracticeCorpus),
     b1a: readCSV(preCueBlock1a),
