@@ -9,13 +9,16 @@ const urlParams = new URLSearchParams(queryString);
 const userMode = urlParams.get("mode") || "default";
 const taskVariant = urlParams.get("variant") || "default";
 const pid = urlParams.get("participant") || null;
-const pseudoFont = urlParams.get("latinFont") !== "true";
 const language = urlParams.get("language") || "en";
 const redirectTo = urlParams.get("redirectTo") || null;
 const pipeline = urlParams.get("pipeline") || "rc";
+const dots = urlParams.get("dots") || false;
+const preCue = dots ? true : (urlParams.get("precue") === "true") || false;
+const pseudoFont = preCue ? false : urlParams.get("latinFont") !== "true";
 
 store.session.set("pid", pid);
 
+// Set up different redirects if preCue is true
 const redirect = () => {
   if (redirectTo === 'refresh') {
     window.location.reload();
@@ -104,17 +107,20 @@ export const config = {
     fixationDuration: 600, // milliseconds
     stimulusDuration: 240, // milliseconds
     maskDuration: 100, // milliseconds
+    preCueDuration: 50, // milliseconds
   },
   practiceTiming: {
     fixationDuration: 1200, // milliseconds
     stimulusDuration: 1200, // milliseconds
     maskDuration: 100, // milliseconds
+    preCueDuration: 50, // milliseconds
   },
   pseudoFont: pseudoFont,
   language: language.toLowerCase(),
   /* record date */
   startTime: new Date(),
   urlParams: urlParams,
+  precue: preCue,
 };
 
 export const jsPsych = initJsPsych({

@@ -10,7 +10,7 @@ import feedbackCorrect from "./assets/audio/feedbackCorrect.mp3";
 import feedbackIncorrect from "./assets/audio/feedbackIncorrect.mp3";
 
 // Video files
-// English language versions 
+// English language versions
 import pseudoBlock1En from "./assets/video/en/pseudoBlock1.mp4";
 import pseudoEndEn from "./assets/video/en/pseudoEnd.mp4";
 import pseudoIntroEn from "./assets/video/en/pseudoIntro.mp4";
@@ -40,6 +40,19 @@ import latinPost2BlockEs from "./assets/video/es/latinPost2BlockEs.mp4";
 import latinPostPracticeEs from "./assets/video/es/latinPostPracticeEs.mp4";
 import latinRewardAnimation1Es from "./assets/video/es/latinRewardAnimation1Es.mp4";
 import latinRewardAnimation2Es from "./assets/video/es/latinRewardAnimation2Es.mp4";
+// Precue versions
+import preCueIntro from "./assets/video/en/precue/intro.mp4";
+import preCuePostPractice from "./assets/video/en/precue/postPractice.mp4";
+import preCueMidBlock1 from "./assets/video/en/precue/midBlock1.mp4";
+import preCueMidBlock2 from "./assets/video/en/precue/midBlock2.mp4";
+import preCueMidBlock3 from "./assets/video/en/precue/midBlock3.mp4";
+import preCueMidBlock4 from "./assets/video/en/precue/midBlock4.mp4";
+import preCueMidBlock5 from "./assets/video/en/precue/midBlock5.mp4";
+import preCuePostBlock1 from "./assets/video/en/precue/postBlock1.mp4";
+import preCuePostBlock2 from "./assets/video/en/precue/postBlock2.mp4";
+import preCuePostBlock3 from "./assets/video/en/precue/postBlock3.mp4";
+import preCuePostBlock4 from "./assets/video/en/precue/postBlock4.mp4";
+import preCueEnd from "./assets/video/en/precue/end.mp4";
 
 function importAll(r) {
   const assets = {};
@@ -76,7 +89,24 @@ const preload_character_trials = {
 
 let videoBlocks;
 if (config.language === "en") {
-  if (config.pseudoFont) {
+  if (config.precue) {
+    videoBlocks = {
+      1: [
+        preCueIntro,
+        preCuePostPractice,
+        preCueMidBlock1,
+        preCueMidBlock2,
+        preCueMidBlock3,
+        preCueMidBlock4,
+        preCueMidBlock5,
+        preCuePostBlock1,
+        preCuePostBlock2,
+        preCuePostBlock3,
+        preCuePostBlock4,
+        preCueEnd,
+      ],
+    };
+  } else if (config.pseudoFont) {
     videoBlocks = {
       1: [
         pseudoBlock1En,
@@ -118,13 +148,13 @@ if (config.language === "en") {
   } else {
     videoBlocks = {
       1: [
-         latinBlock1Es,
-         latinEndEs,
-         latinIntroEs,
-         latinPost2BlockEs,
-         latinPostPracticeEs,
-         latinRewardAnimation1Es,
-         latinRewardAnimation2Es,
+        latinBlock1Es,
+        latinEndEs,
+        latinIntroEs,
+        latinPost2BlockEs,
+        latinPostPracticeEs,
+        latinRewardAnimation1Es,
+        latinRewardAnimation2Es,
       ],
     };
   }

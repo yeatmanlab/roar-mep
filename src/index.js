@@ -1,8 +1,8 @@
-/* eslint-disable no-plusplus */
 /* eslint-disable no-param-reassign */
 
 // jsPsych imports
 import jsPsychFullScreen from "@jspsych/plugin-fullscreen";
+import jsPsychCallFunction from "@jspsych/plugin-call-function";
 import surveyText from '@jspsych/plugin-survey-text';
 
 // Import necessary for async in the top level of the experiment script
@@ -110,6 +110,25 @@ const ifGetPid = {
 
 timeline.push(ifGetPid);
 
+timeline.push({
+  type: jsPsychCallFunction,
+  async: true,
+  func: function (done) {
+    const display_element = document.getElementById('jspsych-content');
+
+    display_element.innerHTML = "<p>Click on the screen to start...</p>";
+    // var init_button = display_element.querySelector('#safari_audio_init');
+
+    function init_audio_files() {
+      jsPsych.pluginAPI.audioContext();
+      done();
+    }
+
+    document.addEventListener('touchstart', init_audio_files, { once: true });
+    document.addEventListener('click', init_audio_files, { once: true });
+  },
+});
+
 const enter_fullscreen = {
   type: jsPsychFullScreen,
   fullscreen_mode: true,
@@ -145,7 +164,7 @@ const pushMEPTrials = (corpus, isPractice) => {
     let stimulusString = stimulus.stimulus.join("");
     stimulusString = `${stimulusString.substring(0, stimuli.length / 2)}+${stimulusString.substring(stimuli.length / 2)}`;
 
-    let choices = ["K", "D", "P", "F", "G", "H"];
+    let choices = config.precue ? ["B", "F", "H", "K", "L", "N", "P", "T", "V", "X", "Y", "Z"] : ["K", "D", "P", "F", "G", "H"];
     const choicesString = choices.join("");
     choices = choices.map(
       (choice) => characters[svgName(choice, config.pseudoFont)],
@@ -159,6 +178,12 @@ const pushMEPTrials = (corpus, isPractice) => {
     );
     const correctResponseIdx = choicesString.indexOf(stimulus.correctResponse);
     const timingKey = isPractice ? "practiceTiming" : "timing";
+    const cueLocations = {
+      1: "left",
+      2: "right",
+      7: "both",
+    };
+
     const inputStimulus = {
       stimulusString: stimulusString,
       source: stimuli,
@@ -166,6 +191,9 @@ const pushMEPTrials = (corpus, isPractice) => {
       choicesString: choicesString,
       stimulusDuration: config[timingKey].stimulusDuration,
       cueDuration: config[timingKey].maskDuration,
+      preCueDuration: config[timingKey].preCueDuration,
+      preCueLocation: stimulus.preCueLocation ? cueLocations[stimulus.preCueLocation] : null,
+      cueToTargetInterval: stimulus.cueToTargetInterval,
       cueLocationIdx: cueLocationIdx,
       correctResponse: stimulus.correctResponse,
       correctResponseIdx: correctResponseIdx,
@@ -179,37 +207,64 @@ const pushMEPTrials = (corpus, isPractice) => {
       fixation,
       stimulus: inputStimulus,
       isPractice,
+      preCue: config.precue,
     }));
   });
   return mepTimeline;
 };
 
-const fourElementBlocks = [];
-timeline.push(...videoTrials.intro);
-timeline.push(...pushMEPTrials(corpora.practice, true));
-timeline.push(...videoTrials.postPractice);
-timeline.push(...pushMEPTrials(corpora.n2a, false));
-timeline.push(...videoTrials.postTwoLetterBlock);
-timeline.push(...pushMEPTrials(corpora.n2b, false));
-fourElementBlocks.push(...videoTrials.postBlock1);
-fourElementBlocks.push(...pushMEPTrials(corpora.n4a, false, fourElementBlocks));
-// fourElementBlocks.push(...videoTrials.rewardAnimation1);
-// fourElementBlocks.push(...pushMEPTrials(corpora.n4b, false, fourElementBlocks));
+if (config.precue) {
+  timeline.push(...videoTrials.intro);
+  timeline.push(...pushMEPTrials(corpora.practice, true));
+  timeline.push(...videoTrials.postPractice);
+  timeline.push(...pushMEPTrials(corpora.b1a, false));
+  timeline.push(...videoTrials.midBlock1);
+  timeline.push(...pushMEPTrials(corpora.b1b, false));
+  timeline.push(...videoTrials.postBlock1);
+  timeline.push(...pushMEPTrials(corpora.b2a, false));
+  timeline.push(...videoTrials.midBlock2);
+  timeline.push(...pushMEPTrials(corpora.b2b, false));
+  timeline.push(...videoTrials.postBlock2);
+  timeline.push(...pushMEPTrials(corpora.b3a, false));
+  timeline.push(...videoTrials.midBlock3);
+  timeline.push(...pushMEPTrials(corpora.b3b, false));
+  timeline.push(...videoTrials.postBlock3);
+  timeline.push(...pushMEPTrials(corpora.b4a, false));
+  timeline.push(...videoTrials.midBlock4);
+  timeline.push(...pushMEPTrials(corpora.b4b, false));
+  timeline.push(...videoTrials.postBlock4);
+  timeline.push(...pushMEPTrials(corpora.b5a, false));
+  timeline.push(...videoTrials.midBlock5);
+  timeline.push(...pushMEPTrials(corpora.b5b, false));
+  timeline.push(...videoTrials.end);
+} else {
+  const fourElementBlocks = [];
+  timeline.push(...videoTrials.intro);
+  timeline.push(...pushMEPTrials(corpora.practice, true));
+  timeline.push(...videoTrials.postPractice);
+  timeline.push(...pushMEPTrials(corpora.n2a, false));
+  timeline.push(...videoTrials.postTwoLetterBlock);
+  timeline.push(...pushMEPTrials(corpora.n2b, false));
+  fourElementBlocks.push(...videoTrials.postBlock1);
+  fourElementBlocks.push(...pushMEPTrials(corpora.n4a, false, fourElementBlocks));
+  fourElementBlocks.push(...videoTrials.rewardAnimation1);
+  fourElementBlocks.push(...pushMEPTrials(corpora.n4b, false, fourElementBlocks));
 
-// Add a conditional timeline to terminate when accuracy is < 4/24 correct for the easy trials
-const if4ElementBlocks = {
-  timeline: fourElementBlocks,
-  conditional_function: function () {
-    // get the data from the previous trials,
-    // and check whether we should continue
-    const correctTrials = jsPsych.data.get().filter({ correct: true, task: "test_response" });
-    return correctTrials.trials.length > 4;
-  },
-};
+  // Add a conditional timeline to terminate when accuracy is < 4/24 correct for the easy trials
+  const if4ElementBlocks = {
+    timeline: fourElementBlocks,
+    conditional_function: function () {
+      // get the data from the previous trials,
+      // and check whether we should continue
+      const correctTrials = jsPsych.data.get().filter({ correct: true, task: "test_response" });
+      return correctTrials.trials.length > 4;
+    },
+  };
 
-timeline.push(if4ElementBlocks);
+  timeline.push(if4ElementBlocks);
 
-timeline.push(...videoTrials.end);
+  timeline.push(...videoTrials.end);
+}
 
 const exit_fullscreen = {
   type: jsPsychFullScreen,
