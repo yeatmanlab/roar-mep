@@ -165,6 +165,7 @@ const pushMEPTrials = (corpus, isPractice) => {
     stimulusString = `${stimulusString.substring(0, stimuli.length / 2)}+${stimulusString.substring(stimuli.length / 2)}`;
 
     let choices = config.precue ? ["B", "F", "H", "K", "L", "N", "P", "T", "V", "X", "Y", "Z"] : ["K", "D", "P", "F", "G", "H"];
+    choices = config.dots ? ["left", "right"] : choices;
     const choicesString = choices.join("");
     choices = choices.map(
       (choice) => characters[svgName(choice, config.pseudoFont)],
@@ -176,7 +177,12 @@ const pushMEPTrials = (corpus, isPractice) => {
     const cueLocationIdx = stimuli.indexOf(
       characters[svgName(stimulus.correctResponse, config.pseudoFont)],
     );
-    const correctResponseIdx = choicesString.indexOf(stimulus.correctResponse);
+
+    let correctResponseIdx = choicesString.indexOf(stimulus.correctResponse);
+    if (config.dots) {
+      correctResponseIdx = cueLocationIdx === 1 ? 0 : 1;
+    }
+
     const timingKey = isPractice ? "practiceTiming" : "timing";
     const cueLocations = {
       1: "left",
@@ -208,35 +214,40 @@ const pushMEPTrials = (corpus, isPractice) => {
       stimulus: inputStimulus,
       isPractice,
       preCue: config.precue,
+      dots: config.dots,
     }));
   });
   return mepTimeline;
 };
 
 if (config.precue) {
-  timeline.push(...videoTrials.intro);
-  timeline.push(...pushMEPTrials(corpora.practice, true));
-  timeline.push(...videoTrials.postPractice);
-  timeline.push(...pushMEPTrials(corpora.b1a, false));
-  timeline.push(...videoTrials.midBlock1);
-  timeline.push(...pushMEPTrials(corpora.b1b, false));
-  timeline.push(...videoTrials.postBlock1);
-  timeline.push(...pushMEPTrials(corpora.b2a, false));
-  timeline.push(...videoTrials.midBlock2);
-  timeline.push(...pushMEPTrials(corpora.b2b, false));
-  timeline.push(...videoTrials.postBlock2);
-  timeline.push(...pushMEPTrials(corpora.b3a, false));
-  timeline.push(...videoTrials.midBlock3);
-  timeline.push(...pushMEPTrials(corpora.b3b, false));
-  timeline.push(...videoTrials.postBlock3);
-  timeline.push(...pushMEPTrials(corpora.b4a, false));
-  timeline.push(...videoTrials.midBlock4);
-  timeline.push(...pushMEPTrials(corpora.b4b, false));
-  timeline.push(...videoTrials.postBlock4);
-  timeline.push(...pushMEPTrials(corpora.b5a, false));
-  timeline.push(...videoTrials.midBlock5);
-  timeline.push(...pushMEPTrials(corpora.b5b, false));
-  timeline.push(...videoTrials.end);
+  if (config.dots) {
+    timeline.push(...pushMEPTrials(corpora.practice, true));
+  } else {
+    timeline.push(...videoTrials.intro);
+    timeline.push(...pushMEPTrials(corpora.practice, true));
+    timeline.push(...videoTrials.postPractice);
+    timeline.push(...pushMEPTrials(corpora.b1a, false));
+    timeline.push(...videoTrials.midBlock1);
+    timeline.push(...pushMEPTrials(corpora.b1b, false));
+    timeline.push(...videoTrials.postBlock1);
+    timeline.push(...pushMEPTrials(corpora.b2a, false));
+    timeline.push(...videoTrials.midBlock2);
+    timeline.push(...pushMEPTrials(corpora.b2b, false));
+    timeline.push(...videoTrials.postBlock2);
+    timeline.push(...pushMEPTrials(corpora.b3a, false));
+    timeline.push(...videoTrials.midBlock3);
+    timeline.push(...pushMEPTrials(corpora.b3b, false));
+    timeline.push(...videoTrials.postBlock3);
+    timeline.push(...pushMEPTrials(corpora.b4a, false));
+    timeline.push(...videoTrials.midBlock4);
+    timeline.push(...pushMEPTrials(corpora.b4b, false));
+    timeline.push(...videoTrials.postBlock4);
+    timeline.push(...pushMEPTrials(corpora.b5a, false));
+    timeline.push(...videoTrials.midBlock5);
+    timeline.push(...pushMEPTrials(corpora.b5b, false));
+    timeline.push(...videoTrials.end);
+  }
 } else {
   const fourElementBlocks = [];
   timeline.push(...videoTrials.intro);

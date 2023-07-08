@@ -97,6 +97,23 @@ function configTaskInfo() {
       ],
     };
   }
+  if (dots) {
+    taskInfo = {
+      taskId: "gea",
+      taskName: "Generic Executive Attention",
+      variantName: pipeline,
+      taskDescription: "This is a task measuring the automaticity of single character recognition.",
+      variantDescription:
+          "This variant uses one two-element block, two four-element blocks, and two six-element blocks.",
+      blocks: [
+        {
+          blockNumber: 0,
+          trialMethod: "fixed",
+          corpus: "practice_block",
+        },
+      ],
+    };
+  }
   return taskInfo;
 }
 
@@ -128,6 +145,7 @@ export const config = {
   startTime: new Date(),
   urlParams: urlParams,
   precue: preCue,
+  dots: dots,
   classId,
   schoolId
 };

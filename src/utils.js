@@ -1,4 +1,3 @@
-import jsPsychAudioKeyboardResponse from "@jspsych/plugin-audio-keyboard-response";
 import jsPsychHtmlButtonResponse from "@jspsych/plugin-html-button-response";
 import jsPsychHtmlKeyboardResponse from "@jspsych/plugin-html-keyboard-response";
 
@@ -72,7 +71,7 @@ export const buildLocationCueHtml = (stimLength, correctResponseIdx, preCueLocat
 };
 
 export const makeRoarTrial = ({
-  fixation, stimulus, isPractice, preCue,
+  fixation, stimulus, isPractice, preCue, dots,
 }) => {
   const timeline = [];
 
@@ -90,6 +89,16 @@ export const makeRoarTrial = ({
   timeline.push(fixationTrial);
 
   if (preCue) {
+    console.log("buildLocationCueHtml", {
+      stimulusSourceLength: stimulus.source.length,
+      stimulusCueLocationIdx: stimulus.cueLocationIdx,
+      stimulusPreCueLocation: stimulus.preCueLocation,
+      locationCueHtml: buildLocationCueHtml(
+        stimulus.source.length,
+        stimulus.cueLocationIdx,
+        stimulus.preCueLocation,
+      ),
+    });
     const preCueTrial = {
       type: jsPsychHtmlKeyboardResponse,
       stimulus: buildLocationCueHtml(
@@ -145,26 +154,36 @@ export const makeRoarTrial = ({
   };
   timeline.push(stimulusTrial);
 
-  const locationCueTrial = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: buildLocationCueHtml(stimulus.source.length, stimulus.cueLocationIdx),
-    choices: "NO_KEYS",
-    stimulus_duration: null,
-    trial_duration: stimulus.cueDuration,
-    data: {
-      task: "location_cue",
-    },
-  };
-  timeline.push(locationCueTrial);
+  if (!dots) {
+    const locationCueTrial = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: buildLocationCueHtml(stimulus.source.length, stimulus.cueLocationIdx),
+      choices: "NO_KEYS",
+      stimulus_duration: null,
+      trial_duration: stimulus.cueDuration,
+      data: {
+        task: "location_cue",
+      },
+    };
+    timeline.push(locationCueTrial);
+  }
+
+  let responseStimulus;
+  if (dots) {
+    responseStimulus = buildStimulusHtml([stimulus.source[Math.floor(stimulus.source.length / 2)]]);
+  } else {
+    responseStimulus = buildLocationCueHtml(stimulus.source.length, stimulus.cueLocationIdx);
+  }
 
   const responseTrial = {
     type: jsPsychHtmlButtonResponse,
-    stimulus: buildLocationCueHtml(stimulus.source.length, stimulus.cueLocationIdx),
+    stimulus: responseStimulus,
     choices: stimulus.choices,
     button_html: buttonHtml,
     data: {
       task: isPractice ? "practice_response" : "test_response",
       isPseudoSloan: config.pseudoFont,
+      isGeneric: config.dots,
       stimulusString: stimulus.stimulusString,
       choicesString: stimulus.choicesString,
       cueLocationIdx: stimulus.cueLocationIdx,
@@ -185,9 +204,9 @@ export const makeRoarTrial = ({
       data.recorded_stimulus_duration = recorded_stimulus_duration;
 
       if (data.correct) {
-        new Audio(audioContent.feedbackCorrect).play()
+        new Audio(audioContent.feedbackCorrect).play();
       } else {
-        new Audio(audioContent.feedbackIncorrect).play()
+        new Audio(audioContent.feedbackIncorrect).play();
       }
     },
   };
