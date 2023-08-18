@@ -1,5 +1,18 @@
 {
   "projects": {
-    "default": "gse-yeatmanlab"
-  }
+    "default": "gse-roar-assessment"
+  },
+  "targets": {
+    "gse-roar-assessment": {
+      "hosting": {
+        "mep": [
+          "roar-mep"
+        ],
+        "meptest": [
+          "roar-mep-testing"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
