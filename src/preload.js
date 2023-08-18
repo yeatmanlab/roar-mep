@@ -1,82 +1,22 @@
 import jsPsychPreload from "@jspsych/plugin-preload";
-import { config } from "./config";
+import { generateAssetObject, createPreloadTrials } from "@bdelab/roar-utils";
+import store from "store2";
+import i18next from "i18next";
 
-// Image files
-import star from "./assets/images/star.svg";
-import advance from "./assets/images/advance.jpeg";
+import assetsFile from '../assets.json';
+import 'regenerator-runtime/runtime';
 
-// Audio files
-import feedbackCorrect from "./assets/audio/feedbackCorrect.mp3";
-import feedbackIncorrect from "./assets/audio/feedbackIncorrect.mp3";
-
-// Video files
-// English language versions
-import pseudoBlock1En from "./assets/video/en/pseudoBlock1.mp4";
-import pseudoEndEn from "./assets/video/en/pseudoEnd.mp4";
-import pseudoIntroEn from "./assets/video/en/pseudoIntro.mp4";
-import pseudoPost2BlockEn from "./assets/video/en/pseudoPost2Block.mp4";
-import pseudoPostPracticeEn from "./assets/video/en/pseudoPostPractice.mp4";
-import pseudoRewardAnimation1En from "./assets/video/en/pseudoRewardAnimation1.mp4";
-import pseudoRewardAnimation2En from "./assets/video/en/pseudoRewardAnimation2.mp4";
-import latinBlock1En from "./assets/video/en/latinBlock1.mp4";
-import latinEndEn from "./assets/video/en/latinEnd.mp4";
-import latinIntroEn from "./assets/video/en/latinIntro.mp4";
-import latinPost2BlockEn from "./assets/video/en/latinPost2Block.mp4";
-import latinPostPracticeEn from "./assets/video/en/latinPostPractice.mp4";
-import latinRewardAnimation1En from "./assets/video/en/latinRewardAnimation1.mp4";
-import latinRewardAnimation2En from "./assets/video/en/latinRewardAnimation2.mp4";
-// Spanish language versions
-import pseudoBlock1Es from "./assets/video/es/pseudoBlock1Es.mp4";
-import pseudoEndEs from "./assets/video/es/pseudoEndEs.mp4";
-import pseudoIntroEs from "./assets/video/es/pseudoIntroEs.mp4";
-import pseudoPost2BlockEs from "./assets/video/es/pseudoPost2BlockEs.mp4";
-import pseudoPostPracticeEs from "./assets/video/es/pseudoPostPracticeEs.mp4";
-import pseudoRewardAnimation1Es from "./assets/video/es/pseudoRewardAnimation1Es.mp4";
-import pseudoRewardAnimation2Es from "./assets/video/es/pseudoRewardAnimation2Es.mp4";
-import latinBlock1Es from "./assets/video/es/latinBlock1Es.mp4";
-import latinEndEs from "./assets/video/es/latinEndEs.mp4";
-import latinIntroEs from "./assets/video/es/latinIntroEs.mp4";
-import latinPost2BlockEs from "./assets/video/es/latinPost2BlockEs.mp4";
-import latinPostPracticeEs from "./assets/video/es/latinPostPracticeEs.mp4";
-import latinRewardAnimation1Es from "./assets/video/es/latinRewardAnimation1Es.mp4";
-import latinRewardAnimation2Es from "./assets/video/es/latinRewardAnimation2Es.mp4";
-// Precue versions
-import preCueIntro from "./assets/video/en/precue/intro.mp4";
-import preCuePostPractice from "./assets/video/en/precue/postPractice.mp4";
-import preCueMidBlock1 from "./assets/video/en/precue/midBlock1.mp4";
-import preCueMidBlock2 from "./assets/video/en/precue/midBlock2.mp4";
-import preCueMidBlock3 from "./assets/video/en/precue/midBlock3.mp4";
-import preCueMidBlock4 from "./assets/video/en/precue/midBlock4.mp4";
-import preCueMidBlock5 from "./assets/video/en/precue/midBlock5.mp4";
-import preCuePostBlock1 from "./assets/video/en/precue/postBlock1.mp4";
-import preCuePostBlock2 from "./assets/video/en/precue/postBlock2.mp4";
-import preCuePostBlock3 from "./assets/video/en/precue/postBlock3.mp4";
-import preCuePostBlock4 from "./assets/video/en/precue/postBlock4.mp4";
-import preCueEnd from "./assets/video/en/precue/end.mp4";
-
-function importAll(r) {
-  const assets = {};
-  r.keys().forEach((asset) => { assets[asset.replace('./', '')] = r(asset); });
-  return assets;
-}
+const bucketURI = 'https://storage.googleapis.com/roar-mep';
+// eslint-disable-next-line import/no-mutable-exports
+export const mediaAssets = generateAssetObject(assetsFile, bucketURI);
+// eslint-disable-next-line import/no-mutable-exports
+export const preloadTrials = createPreloadTrials(assetsFile, bucketURI).default;
 
 // Character svg images
-export const characters = importAll(require.context('./assets/svg', false, /\.(svg)$/));
+export const characters = mediaAssets.images;
 
 export const camelCase = (inString) =>
   inString.replace(/_([a-z])/g, (g) => g[1].toUpperCase());
-
-const preloadObj2contentObj = (preloadObj) => {
-  const contentArray = [].concat(...Object.values(preloadObj));
-  return contentArray.reduce((o, val) => {
-    const pathSplit = val.split("/");
-    const fileName = pathSplit[pathSplit.length - 1];
-    const key = fileName.split(".")[0].replace(/Es$/, "");
-    // eslint-disable-next-line no-param-reassign
-    o[camelCase(key)] = val;
-    return o;
-  }, {});
-};
 
 const preload_character_trials = {
   type: jsPsychPreload,
@@ -88,73 +28,74 @@ const preload_character_trials = {
 };
 
 let videoBlocks;
-if (config.language === "en") {
+const config = () => (store.session.get("config"));
+if (i18next.language === "en") {
   if (config.precue) {
     videoBlocks = {
       1: [
-        preCueIntro,
-        preCuePostPractice,
-        preCueMidBlock1,
-        preCueMidBlock2,
-        preCueMidBlock3,
-        preCueMidBlock4,
-        preCueMidBlock5,
-        preCuePostBlock1,
-        preCuePostBlock2,
-        preCuePostBlock3,
-        preCuePostBlock4,
-        preCueEnd,
+        mediaAssets.video.precueIntro,
+        mediaAssets.video.precuePostPractice,
+        mediaAssets.video.precueMidBlock1,
+        mediaAssets.video.precueMidBlock2,
+        mediaAssets.video.precueMidBlock3,
+        mediaAssets.video.precueMidBlock4,
+        mediaAssets.video.precueMidBlock5,
+        mediaAssets.video.precuePostBlock1,
+        mediaAssets.video.precuePostBlock2,
+        mediaAssets.video.precuePostBlock3,
+        mediaAssets.video.precuePostBlock4,
+        mediaAssets.video.precueEnd,
       ],
     };
   } else if (config.pseudoFont) {
     videoBlocks = {
       1: [
-        pseudoBlock1En,
-        pseudoEndEn,
-        pseudoIntroEn,
-        pseudoPost2BlockEn,
-        pseudoPostPracticeEn,
-        pseudoRewardAnimation1En,
-        pseudoRewardAnimation2En,
+        mediaAssets.video.pseudoBlock1En,
+        mediaAssets.video.pseudoEndEn,
+        mediaAssets.video.pseudoIntroEn,
+        mediaAssets.video.pseudoPost2BlockEn,
+        mediaAssets.video.pseudoPostPracticeEn,
+        mediaAssets.video.pseudoRewardAnimation1En,
+        mediaAssets.video.pseudoRewardAnimation2En,
       ],
     };
   } else {
     videoBlocks = {
       1: [
-        latinBlock1En,
-        latinEndEn,
-        latinIntroEn,
-        latinPost2BlockEn,
-        latinPostPracticeEn,
-        latinRewardAnimation1En,
-        latinRewardAnimation2En,
+        mediaAssets.video.latinBlock1En,
+        mediaAssets.video.latinEndEn,
+        mediaAssets.video.latinIntroEn,
+        mediaAssets.video.latinPost2BlockEn,
+        mediaAssets.video.latinPostPracticeEn,
+        mediaAssets.video.latinRewardAnimation1En,
+        mediaAssets.video.latinRewardAnimation2En,
       ],
     };
   }
 } else {
   // eslint-disable-next-line no-lonely-if
-  if (config.pseudoFont) {
+  if (config().pseudoFont) {
     videoBlocks = {
       1: [
-        pseudoBlock1Es,
-        pseudoEndEs,
-        pseudoIntroEs,
-        pseudoPost2BlockEs,
-        pseudoPostPracticeEs,
-        pseudoRewardAnimation1Es,
-        pseudoRewardAnimation2Es,
+        mediaAssets.video.pseudoBlock1Es,
+        mediaAssets.video.pseudoEndEs,
+        mediaAssets.video.pseudoIntroEs,
+        mediaAssets.video.pseudoPost2BlockEs,
+        mediaAssets.video.pseudoPostPracticeEs,
+        mediaAssets.video.pseudoRewardAnimation1Es,
+        mediaAssets.video.pseudoRewardAnimation2Es,
       ],
     };
   } else {
     videoBlocks = {
       1: [
-        latinBlock1Es,
-        latinEndEs,
-        latinIntroEs,
-        latinPost2BlockEs,
-        latinPostPracticeEs,
-        latinRewardAnimation1Es,
-        latinRewardAnimation2Es,
+        mediaAssets.video.latinBlock1Es,
+        mediaAssets.video.latinEndEs,
+        mediaAssets.video.latinIntroEs,
+        mediaAssets.video.latinPost2BlockEs,
+        mediaAssets.video.latinPostPracticeEs,
+        mediaAssets.video.latinRewardAnimation1Es,
+        mediaAssets.video.latinRewardAnimation2Es,
       ],
     };
   }
@@ -162,22 +103,22 @@ if (config.language === "en") {
 
 const imageBlocks = {
   2: [
-    star,
-    advance,
+    mediaAssets.images.star,
+    mediaAssets.images.advance,
   ],
 };
 
 const audioBlocks = {
   3: [
-    feedbackCorrect,
-    feedbackIncorrect,
+    mediaAssets.audio.feedbackCorrect,
+    mediaAssets.audio.feedbackIncorrect,
   ],
 };
 
 // Automatically populate the audioContent object with the audio files
-export const imgContent = preloadObj2contentObj(imageBlocks);
-export const videoContent = preloadObj2contentObj(videoBlocks);
-export const audioContent = preloadObj2contentObj(audioBlocks);
+export const imgContent = imageBlocks;
+export const videoContent = videoBlocks;
+export const audioContent = audioBlocks;
 
 const preload_video_trials = Object.entries(videoBlocks).map(([idx, img_block]) => ({
   type: jsPsychPreload,
