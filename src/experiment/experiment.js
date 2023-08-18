@@ -47,7 +47,6 @@ export function buildExperiment(config) {
   } else {
     const fourElementBlocks = [];
     // timeline.push(...videoTrials.intro);
-    console.log(pushMEPTrials(corpora.practice, true, config))
     timeline.push(...pushMEPTrials(corpora.practice, true, config));
     timeline.push(...videoTrials.postPractice);
     timeline.push(...pushMEPTrials(corpora.n2a, false, config));

@@ -130,7 +130,6 @@ export const makeRoarTrial = ({
       start_time = undefined;
     }
   };
-  console.log(record_stimulus_duration())
   const stimulusTrial = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: buildStimulusHtml(stimulus.source),
