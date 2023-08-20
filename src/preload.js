@@ -105,6 +105,7 @@ const imageBlocks = {
   2: [
     mediaAssets.images.star,
     mediaAssets.images.advance,
+    mediaAssets.images.gradeKeyboard,
   ],
 };
 

@@ -6,6 +6,18 @@ import { imgContent, videoContent, mediaAssets } from "../../preload";
 const isMobile = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 console.log(`isMobile: ${isMobile()}`);
 
+const queryString = new URL(window.location).search;
+const urlParams = new URLSearchParams(queryString);
+const userMode = urlParams.get("mode") || "default";
+const taskVariant = urlParams.get("variant") || "default";
+const pid = urlParams.get("participant") || null;
+const language = urlParams.get("language") || "en";
+const redirectTo = urlParams.get("redirectTo") || null;
+const pipeline = urlParams.get("pipeline") || "rc";
+const dots = urlParams.get("dots") || false;
+const precue = dots ? true : (urlParams.get("precue") === "true") || false;
+const pseudoFont = precue ? false : urlParams.get("latinFont") !== "true";
+
 // any dynamic state should be run as a arrow FUNCTION
 
 const kwargs = {
@@ -40,7 +52,7 @@ const clickStarTrial = {
 };
 
 /* define instructions trial */
-if (store.session.get("config").precue) {
+if (precue) {
   const introTrial = [{
     stimulus: [videoContent.intro],
     ...kwargs,
@@ -116,7 +128,7 @@ if (store.session.get("config").precue) {
     end: endTrial,
   };
 } else {
-  const videoPrefix = store.session.get("config").pseudoFont ? "pseudo" : "latin";
+  const videoPrefix = pseudoFont ? "pseudo" : "latin";
 
   const introTrial = [{
     stimulus: [videoContent[`${videoPrefix}Intro`]],

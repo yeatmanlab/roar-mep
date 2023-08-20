@@ -12,10 +12,12 @@ import "./css/game_v4.css";
 import { preloadTrials, pushMEPTrials } from "./experimentHelpers";
 import { corpora } from "./config/corpus";
 import { videoTrials } from "./trials/videos";
+import { mediaAssets } from "../preload";
 
 // eslint-disable-next-line import/prefer-default-export
 export function buildExperiment(config) {
   console.log(config);
+  console.log(mediaAssets)
   initRoarJsPsych(config);
   const initialTimeline = initRoarTimeline(config);
 
