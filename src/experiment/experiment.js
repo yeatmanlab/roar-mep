@@ -16,8 +16,6 @@ import { mediaAssets } from "../preload";
 
 // eslint-disable-next-line import/prefer-default-export
 export function buildExperiment(config) {
-  console.log(config);
-  console.log(mediaAssets)
   initRoarJsPsych(config);
   const initialTimeline = initRoarTimeline(config);
 
