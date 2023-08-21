@@ -33,7 +33,7 @@ export const pushMEPTrials = (corpus, isPractice) => {
     stimuli = stimuli.map(
       (stim) => characters[svgName(stim, config.pseudoFont)],
     );
-    stimuli.splice(stimuli.length / 2, 0, characters["plus"]);
+    stimuli.splice(stimuli.length / 2, 0, characters.plus);
     const cueLocationIdx = stimuli.indexOf(
       characters[svgName(stimulus.correctResponse, config.pseudoFont)],
     );

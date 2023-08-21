@@ -1,19 +1,18 @@
 import store from "store2";
 import jsPsychVideoKeyboardResponse from "@jspsych/plugin-video-keyboard-response";
 import jsPsychImageButtonResponse from "@jspsych/plugin-image-button-response";
-import { imgContent, videoContent, mediaAssets } from "../../preload";
+// import { imgContent, mediaAssets.video, mediaAssets } from "../../preload";
+import { generateAssetObject } from "@bdelab/roar-utils";
+import assetsFile from '../../../assets.json';
+
+const bucketURI = 'https://storage.googleapis.com/roar-mep';
+const mediaAssets = generateAssetObject(assetsFile, bucketURI);
 
 const isMobile = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 console.log(`isMobile: ${isMobile()}`);
 
 const queryString = new URL(window.location).search;
 const urlParams = new URLSearchParams(queryString);
-const userMode = urlParams.get("mode") || "default";
-const taskVariant = urlParams.get("variant") || "default";
-const pid = urlParams.get("participant") || null;
-const language = urlParams.get("language") || "en";
-const redirectTo = urlParams.get("redirectTo") || null;
-const pipeline = urlParams.get("pipeline") || "rc";
 const dots = urlParams.get("dots") || false;
 const precue = dots ? true : (urlParams.get("precue") === "true") || false;
 const pseudoFont = precue ? false : urlParams.get("latinFont") !== "true";
@@ -37,7 +36,7 @@ const kwargs = {
 
 let videoExports;
 
-const buttonHtml = `<button class="star-center transparent"><img draggable="false" style="width: 350px; height: 350px;" src="${imgContent.star}" /></button>`;
+const buttonHtml = `<button class="star-center transparent"><img draggable="false" style="width: 350px; height: 350px;" src="${mediaAssets.images.star}" /></button>`;
 const clickStarTrial = {
   type: jsPsychImageButtonResponse,
   stimulus: [mediaAssets.images.advance],
@@ -54,62 +53,62 @@ const clickStarTrial = {
 /* define instructions trial */
 if (precue) {
   const introTrial = [{
-    stimulus: [videoContent.intro],
+    stimulus: [mediaAssets.video.intro],
     ...kwargs,
   }, clickStarTrial];
 
   const postPracticeTrial = [{
-    stimulus: [videoContent.postPractice],
+    stimulus: [mediaAssets.video.postPractice],
     ...kwargs,
   }, clickStarTrial];
 
   const midBlock1Trial = [{
-    stimulus: [videoContent.midBlock1],
+    stimulus: [mediaAssets.video.midBlock1],
     ...kwargs,
   }, clickStarTrial];
 
   const postBlock1Trial = [{
-    stimulus: [videoContent.postBlock1],
+    stimulus: [mediaAssets.video.postBlock1],
     ...kwargs,
   }, clickStarTrial];
 
   const midBlock2Trial = [{
-    stimulus: [videoContent.midBlock2],
+    stimulus: [mediaAssets.video.midBlock2],
     ...kwargs,
   }, clickStarTrial];
 
   const postBlock2Trial = [{
-    stimulus: [videoContent.postBlock2],
+    stimulus: [mediaAssets.video.postBlock2],
     ...kwargs,
   }, clickStarTrial];
 
   const midBlock3Trial = [{
-    stimulus: [videoContent.midBlock3],
+    stimulus: [mediaAssets.video.midBlock3],
     ...kwargs,
   }, clickStarTrial];
 
   const postBlock3Trial = [{
-    stimulus: [videoContent.postBlock3],
+    stimulus: [mediaAssets.video.postBlock3],
     ...kwargs,
   }, clickStarTrial];
 
   const midBlock4Trial = [{
-    stimulus: [videoContent.midBlock4],
+    stimulus: [mediaAssets.video.midBlock4],
     ...kwargs,
   }, clickStarTrial];
 
   const postBlock4Trial = [{
-    stimulus: [videoContent.postBlock4],
+    stimulus: [mediaAssets.video.postBlock4],
     ...kwargs,
   }, clickStarTrial];
 
   const midBlock5Trial = [{
-    stimulus: [videoContent.midBlock5],
+    stimulus: [mediaAssets.video.midBlock5],
     ...kwargs,
   }, clickStarTrial];
 
   const endTrial = [{
-    stimulus: [videoContent.end],
+    stimulus: [mediaAssets.video.end],
     ...kwargs,
   }, clickStarTrial];
 
@@ -131,37 +130,37 @@ if (precue) {
   const videoPrefix = pseudoFont ? "pseudo" : "latin";
 
   const introTrial = [{
-    stimulus: [videoContent[`${videoPrefix}Intro`]],
+    stimulus: [mediaAssets.video[`${videoPrefix}Intro`]],
     ...kwargs,
   }, clickStarTrial];
 
   const postPracticeTrial = [{
-    stimulus: [videoContent[`${videoPrefix}PostPractice`]],
+    stimulus: [mediaAssets.video[`${videoPrefix}PostPractice`]],
     ...kwargs,
   }, clickStarTrial];
 
   const postTwoLetterBlockTrial = [{
-    stimulus: [videoContent[`${videoPrefix}Post2Block`]],
+    stimulus: [mediaAssets.video[`${videoPrefix}Post2Block`]],
     ...kwargs,
   }, clickStarTrial];
 
   const postBlock1Trial = [{
-    stimulus: [videoContent[`${videoPrefix}Block1`]],
+    stimulus: [mediaAssets.video[`${videoPrefix}Block1`]],
     ...kwargs,
   }, clickStarTrial];
 
   const rewardAnimation1Trial = [{
-    stimulus: [videoContent[`${videoPrefix}RewardAnimation1`]],
+    stimulus: [mediaAssets.video[`${videoPrefix}RewardAnimation1`]],
     ...kwargs,
   }, clickStarTrial];
 
   const rewardAnimation2Trial = [{
-    stimulus: [videoContent[`${videoPrefix}RewardAnimation2`]],
+    stimulus: [mediaAssets.video[`${videoPrefix}RewardAnimation2`]],
     ...kwargs,
   }, clickStarTrial];
 
   const endTrial = [{
-    stimulus: [videoContent[`${videoPrefix}End`]],
+    stimulus: [mediaAssets.video[`${videoPrefix}End`]],
     ...kwargs,
   }, clickStarTrial];
 

@@ -8,7 +8,7 @@ import store from "store2";
 // Local imports
 import { jsPsych } from "./jsPsych";
 import { nStimuli } from "./config/corpus";
-import { audioContent, characters } from "../preload";
+import { mediaAssets, characters } from "../preload";
 
 const buttonHtml = '<button class="jspsych-btn" type="button"><img draggable="false" src="%choice%" width="100%" height="100%"/></button>';
 
@@ -185,9 +185,9 @@ export const makeRoarTrial = ({
       data.recorded_stimulus_duration = recorded_stimulus_duration;
 
       if (data.correct) {
-        new Audio(audioContent.feedbackCorrect).play()
+        new Audio(mediaAssets.audio.feedbackCorrect).play();
       } else {
-        new Audio(audioContent.feedbackIncorrect).play()
+        new Audio(mediaAssets.audio.feedbackIncorrect).play();
       }
     },
   };

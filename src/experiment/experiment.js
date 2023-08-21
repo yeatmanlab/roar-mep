@@ -12,7 +12,6 @@ import "./css/game_v4.css";
 import { preloadTrials, pushMEPTrials } from "./experimentHelpers";
 import { corpora } from "./config/corpus";
 import { videoTrials } from "./trials/videos";
-import { mediaAssets } from "../preload";
 
 // eslint-disable-next-line import/prefer-default-export
 export function buildExperiment(config) {
@@ -46,7 +45,7 @@ export function buildExperiment(config) {
     timeline.push(...videoTrials.end);
   } else {
     const fourElementBlocks = [];
-    // timeline.push(...videoTrials.intro);
+    timeline.push(...videoTrials.intro);
     timeline.push(...pushMEPTrials(corpora.practice, true, config));
     timeline.push(...videoTrials.postPractice);
     timeline.push(...pushMEPTrials(corpora.n2a, false, config));
