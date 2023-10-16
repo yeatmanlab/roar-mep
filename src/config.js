@@ -15,11 +15,18 @@ const pipeline = urlParams.get("pipeline") || "rc";
 const dots = urlParams.get("dots") || false;
 const preCue = dots ? true : (urlParams.get("precue") === "true") || false;
 const pseudoFont = preCue ? false : urlParams.get("latinFont") !== "true";
+const classId = urlParams.get("classId")
+const schoolId = urlParams.get("schoolId")
+const fromDashboard = urlParams.get("fromDashboard") === "true" ? true : false
 
 store.session.set("pid", pid);
 
 // Set up different redirects if preCue is true
 const redirect = () => {
+  if (fromDashboard) {
+    window.location.href = 'https://roar.education'
+  }
+
   if (redirectTo === 'refresh') {
     window.location.reload();
   } else if (pseudoFont) {
@@ -121,6 +128,8 @@ export const config = {
   startTime: new Date(),
   urlParams: urlParams,
   precue: preCue,
+  classId,
+  schoolId
 };
 
 export const jsPsych = initJsPsych({
