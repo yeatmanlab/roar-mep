@@ -1,21 +1,13 @@
 import store from "store2";
 import jsPsychVideoKeyboardResponse from "@jspsych/plugin-video-keyboard-response";
 import jsPsychImageButtonResponse from "@jspsych/plugin-image-button-response";
-// import { imgContent, mediaAssets.video, mediaAssets } from "../../preload";
-import { generateAssetObject } from "@bdelab/roar-utils";
-import assetsFile from '../../../assets.json';
-
-const bucketURI = 'https://storage.googleapis.com/roar-mep';
-const mediaAssets = generateAssetObject(assetsFile, bucketURI);
+import { mediaAssets } from "../experimentHelpers";
 
 const isMobile = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 console.log(`isMobile: ${isMobile()}`);
 
-const queryString = new URL(window.location).search;
-const urlParams = new URLSearchParams(queryString);
-const dots = urlParams.get("dots") || false;
-const precue = dots ? true : (urlParams.get("precue") === "true") || false;
-const pseudoFont = precue ? false : urlParams.get("latinFont") !== "true";
+const precue = store.session.get("precue");
+const pseudoFont = store.session.get("pseudoFont");
 
 // any dynamic state should be run as a arrow FUNCTION
 
@@ -39,7 +31,7 @@ let videoExports;
 const buttonHtml = `<button class="star-center transparent"><img draggable="false" style="width: 350px; height: 350px;" src="${mediaAssets.images.star}" /></button>`;
 const clickStarTrial = {
   type: jsPsychImageButtonResponse,
-  stimulus: [mediaAssets.images.advance],
+  stimulus: () => mediaAssets.images.advance,
   choices: [""],
   button_html: buttonHtml,
   stimulus_width: 1238,
@@ -130,7 +122,7 @@ if (precue) {
   const videoPrefix = pseudoFont ? "pseudo" : "latin";
 
   const introTrial = [{
-    stimulus: [mediaAssets.video[`${videoPrefix}Intro`]],
+    stimulus: mediaAssets.video[`${videoPrefix}Intro`],
     ...kwargs,
   }, clickStarTrial];
 

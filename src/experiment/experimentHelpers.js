@@ -3,6 +3,7 @@ import store from "store2";
 import assets from '../../assets.json';
 import 'regenerator-runtime/runtime';
 import { makeRoarTrial } from "./utils";
+// import { imgContent, mediaAssets.video, mediaAssets } from "../../preload";
 
 const bucketURI = 'https://storage.googleapis.com/roar-mep';
 export const mediaAssets = generateAssetObject(assets, bucketURI);

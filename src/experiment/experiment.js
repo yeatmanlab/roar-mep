@@ -12,6 +12,7 @@ import "./css/game_v4.css";
 import { preloadTrials, pushMEPTrials } from "./experimentHelpers";
 import { corpora } from "./config/corpus";
 import { videoTrials } from "./trials/videos";
+import { exit_fullscreen } from "./trials/fullScreen";
 
 // eslint-disable-next-line import/prefer-default-export
 export function buildExperiment(config) {
@@ -20,7 +21,7 @@ export function buildExperiment(config) {
 
   const timeline = [preloadTrials, ...initialTimeline.timeline];
   if (config.precue) {
-    timeline.push(...videoTrials.intro);
+    // timeline.push(...videoTrials.intro);
     timeline.push(...pushMEPTrials(corpora.practice, true, config));
     timeline.push(...videoTrials.postPractice);
     timeline.push(...pushMEPTrials(corpora.b1a, false, config));
@@ -45,7 +46,7 @@ export function buildExperiment(config) {
     timeline.push(...videoTrials.end);
   } else {
     const fourElementBlocks = [];
-    timeline.push(...videoTrials.intro);
+    // timeline.push(...videoTrials.intro);
     timeline.push(...pushMEPTrials(corpora.practice, true, config));
     timeline.push(...videoTrials.postPractice);
     timeline.push(...pushMEPTrials(corpora.n2a, false, config));
@@ -71,12 +72,6 @@ export function buildExperiment(config) {
 
     timeline.push(...videoTrials.end);
   }
-
-  const exit_fullscreen = {
-    type: jsPsychFullScreen,
-    fullscreen_mode: false,
-    delay_after: 450,
-  };
 
   timeline.push(exit_fullscreen);
 

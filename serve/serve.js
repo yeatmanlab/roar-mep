@@ -19,6 +19,18 @@ const dots = urlParams.get("dots") || false;
 const precue = dots ? true : (urlParams.get("precue") === "true") || false;
 const pseudoFont = precue ? false : urlParams.get("latinFont") !== "true";
 
+store.session.set("queryString", queryString);
+store.session.set("urlParams", urlParams);
+store.session.set("userMode", userMode);
+store.session.set("taskVariant", taskVariant);
+store.session.set("pid", pid);
+store.session.set("language", language);
+store.session.set("redirectTo", redirectTo);
+store.session.set("pipeline", pipeline);
+store.session.set("dots", dots);
+store.session.set("precue", precue);
+store.session.set("pseudoFont", pseudoFont);
+
 store.session.set("pid", pid);
 
 // @ts-ignore

@@ -27,3 +27,9 @@ export const enterFullscreen = {
     first = false;
   },
 };
+
+export const exit_fullscreen = {
+  type: jsPsychFullScreen,
+  fullscreen_mode: false,
+  delay_after: 450,
+};
