@@ -3,12 +3,12 @@ import store from "store2";
 import assets from '../../assets.json';
 import 'regenerator-runtime/runtime';
 import { makeRoarTrial } from "./utils";
-// import { imgContent, mediaAssets.video, mediaAssets } from "../../preload";
 
 const bucketURI = 'https://storage.googleapis.com/roar-mep';
 export const mediaAssets = generateAssetObject(assets, bucketURI);
+console.log(mediaAssets)
 export const preloadTrials = createPreloadTrials(assets, bucketURI).default;
-const characters = mediaAssets.images;
+export const characters = mediaAssets.images;
 const svgName = (letter, pseudoFont = true) => {
   if (pseudoFont) {
     return `latinSmall${letter}`;

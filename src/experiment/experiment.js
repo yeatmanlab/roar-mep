@@ -21,7 +21,7 @@ export function buildExperiment(config) {
 
   const timeline = [preloadTrials, ...initialTimeline.timeline];
   if (config.precue) {
-    // timeline.push(...videoTrials.intro);
+    timeline.push(...videoTrials.intro);
     timeline.push(...pushMEPTrials(corpora.practice, true, config));
     timeline.push(...videoTrials.postPractice);
     timeline.push(...pushMEPTrials(corpora.b1a, false, config));
@@ -46,7 +46,7 @@ export function buildExperiment(config) {
     timeline.push(...videoTrials.end);
   } else {
     const fourElementBlocks = [];
-    // timeline.push(...videoTrials.intro);
+    timeline.push(...videoTrials.intro);
     timeline.push(...pushMEPTrials(corpora.practice, true, config));
     timeline.push(...videoTrials.postPractice);
     timeline.push(...pushMEPTrials(corpora.n2a, false, config));

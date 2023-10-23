@@ -1,10 +1,10 @@
 import store from "store2";
 import jsPsychVideoKeyboardResponse from "@jspsych/plugin-video-keyboard-response";
 import jsPsychImageButtonResponse from "@jspsych/plugin-image-button-response";
+import { getDevice } from "@bdelab/roar-utils";
 import { mediaAssets } from "../experimentHelpers";
 
-const isMobile = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-console.log(`isMobile: ${isMobile()}`);
+console.log(`getDevice: ${getDevice()}`);
 
 const precue = store.session.get("precue");
 const pseudoFont = store.session.get("pseudoFont");
@@ -15,8 +15,8 @@ const kwargs = {
   type: jsPsychVideoKeyboardResponse,
   choices: () => (store.session.get("config").testingOnly ? "ALL_KEYS" : "NO_KEYS"),
   trial_ends_after_video: true,
-  autoplay: !isMobile(),
-  controls: isMobile(),
+  autoplay: !getDevice(),
+  controls: getDevice(),
   width: 1238,
   height: 800,
   response_allowed_while_playing: () => (store.session.get("config").testingOnly),
@@ -31,7 +31,7 @@ let videoExports;
 const buttonHtml = `<button class="star-center transparent"><img draggable="false" style="width: 350px; height: 350px;" src="${mediaAssets.images.star}" /></button>`;
 const clickStarTrial = {
   type: jsPsychImageButtonResponse,
-  stimulus: () => mediaAssets.images.advance,
+  stimulus: [mediaAssets.images.advance],
   choices: [""],
   button_html: buttonHtml,
   stimulus_width: 1238,
@@ -122,7 +122,7 @@ if (precue) {
   const videoPrefix = pseudoFont ? "pseudo" : "latin";
 
   const introTrial = [{
-    stimulus: mediaAssets.video[`${videoPrefix}Intro`],
+    stimulus: [mediaAssets.video[`${videoPrefix}Intro`]],
     ...kwargs,
   }, clickStarTrial];
 
@@ -166,4 +166,7 @@ if (precue) {
     end: endTrial,
   };
 }
+
+console.log(videoExports)
+
 export const videoTrials = videoExports;
