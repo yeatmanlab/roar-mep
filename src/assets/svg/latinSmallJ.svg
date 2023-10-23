@@ -1,6 +1,0 @@
-<svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <path transform="scale(1, -1)" transform-origin="50% 50%" id="latin-small-j" horiz-adv-x="1000" d="M500 200Q602 65 762 20Q830 0 900 0H1000V200H900Q788 200 704 273Q633 335 610 424Q600 460 600 500V1000H400V500Q400 460 390 424Q367 335 296 273Q212 200 100 200H0V0H100Q170 0 238 20Q398 65 500 200Z" />
-  </defs>
-  <use href="#latin-small-j"></use>
-</svg>

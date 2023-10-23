@@ -1,0 +1,23 @@
+{
+  "progressBar": "Progress Complete",
+  "preloadTrial": {
+    "messageText": "Please wait while the experiment loads. This may take a few minutes."
+  },
+  "fullScreenTrial": {
+    "prompt": "The experiment will switch to full screen mode. <br/> Click the button to continue.",
+    "buttonText": "Continue"
+  },
+  "navigation": {
+    "continueButtonText": "Press <span class='yellow'>ANY KEY</span> to {{action}}",
+    "continueButtonTextMobile": "Press <span class='yellow'>HERE</span> to {{action}}",
+    "studentSelect": "Press <span class='yellow'>a number key</span> to pick a student "
+  },
+  "introduction": {
+    "gradeSelect": {
+      "text1": "What grade are you in?",
+      "text2": "To get started, press the number key on your keyboard of the grade you are in.",
+      "text3": "For example, you would press “4” if you are in 4th grade.",
+      "text4": "Press <span class='yellow'>the number key </span> of the grade you are in to continue "
+    }
+  }
+}

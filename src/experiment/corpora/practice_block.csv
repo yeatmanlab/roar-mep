@@ -1,0 +1,9 @@
+﻿blockNum,originalBlockTrialNum,cueType,cueValidity,postCueLocation,pstCueCoordXD,fixOnset,TargetDur,TargetOnset,pstMaskOnset,RespOnset,trialNum,precueLocation,string,CxResp,CxResplowercase,overallTrialNum,Preq1Op,Preq2Op,Preq3Op,Preq4Op,Preq5Op,Preq6Op,positionss,positionx,positiony,pstCueCoordX
+3,1,0,0,2,-0.928,2,1.2,1.2,2.4,2.5,1,2,{'HFGK'},F,h,1,1,1,1,1,1,1,,,-0.5,-0.065260197
+3,2,0,0,2,-0.928,2,1.2,1.2,2.4,2.5,2,7,{'DFGP'},F,f,2,1,1,1,1,1,1,1,-1.856,-0.5,-0.065260197
+3,3,0,0,3,0.928,2,1.2,1.2,2.4,2.5,3,1,{'FDHG'},H,p,3,1,1,1,1,1,1,2,-0.928,-0.5,0.065260197
+3,4,0,0,4,1.856,2,1.2,1.2,2.4,2.5,4,1,{'PGFH'},H,p,4,1,1,1,1,1,1,3,0.928,-0.5,0.130520394
+3,5,0,0,3,0.928,2,1.2,1.2,2.4,2.5,5,1,{'HPGF'},G,h,5,1,1,1,1,1,1,4,1.856,-0.5,0.065260197
+3,6,0,0,3,0.928,2,1.2,1.2,2.4,2.5,6,7,{'KHFD'},F,f,6,1,1,1,1,1,1,,,-0.5,0.065260197
+3,7,0,0,1,-1.856,2,1.2,1.2,2.4,2.5,7,7,{'DPFK'},D,g,7,1,1,1,1,1,1,,,,-0.130520394
+3,8,0,0,2,-0.928,2,1.2,1.2,2.4,2.5,8,7,{'DPHF'},P,h,8,1,1,1,1,1,1,,deg to norm,,-0.065260197

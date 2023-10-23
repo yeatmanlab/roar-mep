@@ -1,6 +1,0 @@
-<svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <path transform="scale(1, -1)" transform-origin="50% 50%" id="latin-capital-i-acute" horiz-adv-x="1000" d="M1000 800H600V600H800V400H600V200H1000V0H316Q289 0 276 1Q221 5 170 30Q90 68 44 144Q0 217 0 300Q0 387 46 460Q99 543 188 578Q243 600 298 600H400V800H0V1000H1000V800ZM400 200V400H298Q241 398 214 350Q184 300 214 248Q243 202 298 200H400Z" />
-  </defs>
-  <use href="#latin-capital-i-acute"></use>
-</svg>
