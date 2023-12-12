@@ -15,9 +15,9 @@ const pipeline = urlParams.get("pipeline") || "rc";
 const dots = urlParams.get("dots") || false;
 const preCue = dots ? true : (urlParams.get("precue") === "true") || false;
 const pseudoFont = preCue ? false : urlParams.get("latinFont") !== "true";
-const classId = urlParams.get("classId")
-const schoolId = urlParams.get("schoolId")
-const fromDashboard = urlParams.get("fromDashboard") === "true" ? true : false
+const classId = urlParams.get("classId");
+const schoolId = urlParams.get("schoolId");
+const fromDashboard = urlParams.get("fromDashboard") === "true";
 
 store.session.set("pid", pid);
 
