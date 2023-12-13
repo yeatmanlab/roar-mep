@@ -23,6 +23,11 @@ import preCueBlock5b from "./corpora/characters/precue/precue_block-5b.csv";
 
 // Generic corpus imports (with precues)
 import genericPracticeCorpus from "./corpora/generic/generic_practice_block.csv";
+import genericBlock1 from "./corpora/generic/generic_block1.csv";
+import genericBlock2 from "./corpora/generic/generic_block2.csv";
+import genericBlock3 from "./corpora/generic/generic_block3.csv";
+import genericBlock4 from "./corpora/generic/generic_block4.csv";
+import genericBlock5 from "./corpora/generic/generic_block5.csv";
 
 // addAsset :: (k, Promise a) -> Promise (k, a)
 const addAsset = ([name, assetPromise]) =>
@@ -38,6 +43,11 @@ if (config.precue) {
   if (config.dots) {
     csvPromises = {
       practice: readCSV(genericPracticeCorpus),
+      b1: readCSV(genericBlock1),
+      b2: readCSV(genericBlock2),
+      b3: readCSV(genericBlock3),
+      b4: readCSV(genericBlock4),
+      b5: readCSV(genericBlock5),
     };
   } else {
     csvPromises = {

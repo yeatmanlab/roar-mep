@@ -1,5 +1,6 @@
 import jsPsychVideoKeyboardResponse from "@jspsych/plugin-video-keyboard-response";
 import jsPsychImageButtonResponse from "@jspsych/plugin-image-button-response";
+import jsPsychHtmlButtonResponse from "@jspsych/plugin-html-button-response";
 import { config, jsPsych } from "./config";
 import { imgContent, videoContent } from "./preload";
 
@@ -21,12 +22,27 @@ const kwargs = {
   },
 };
 
-const buttonHtml = `<button class="star-center transparent"><img draggable="false" style="width: 350px; height: 350px;" src="${imgContent.star}" /></button>`;
+const starButtonHtml = `<button class="star-center transparent"><img draggable="false" style="width: 350px; height: 350px;" src="${imgContent.star}" /></button>`;
 const clickStarTrial = {
   type: jsPsychImageButtonResponse,
   stimulus: [imgContent.advance],
   choices: [""],
-  button_html: buttonHtml,
+  button_html: starButtonHtml,
+  stimulus_width: 1238,
+  data: {
+    task: "continue_from_video",
+  },
+  margin_vertical: "inherit",
+  margin_horizontal: "inherit",
+};
+
+const flowerButtonHtml = `<button class="star-center transparent"><img draggable="false" style="width: 350px; height: 350px;" src="${imgContent.flower}" /></button>`;
+const clickFlowerTrial = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: "",
+  prompt: "<h2>Click the flower to continue</h2>",
+  choices: [""],
+  button_html: flowerButtonHtml,
   stimulus_width: 1238,
   data: {
     task: "continue_from_video",
@@ -38,7 +54,64 @@ const clickStarTrial = {
 let videoTrials;
 
 /* define instructions trial */
-if (config.precue) {
+if (config.dots) {
+  const introTrial1 = [{
+    stimulus: [videoContent.intro1Generic],
+    ...kwargs,
+  }];
+
+  const introTrial2 = [{
+    stimulus: [videoContent.intro2Generic],
+    ...kwargs,
+  }];
+
+  const introTrial3 = [{
+    stimulus: [videoContent.intro3Generic],
+    ...kwargs,
+  }, clickFlowerTrial];
+
+  const postPracticeTrial = [{
+    stimulus: [videoContent.postPracticeGeneric],
+    ...kwargs,
+  }, clickFlowerTrial];
+
+  const postBlock1Trial = [{
+    stimulus: [videoContent.postBlock1Generic],
+    ...kwargs,
+  }, clickFlowerTrial];
+
+  const postBlock2Trial = [{
+    stimulus: [videoContent.postBlock2Generic],
+    ...kwargs,
+  }, clickFlowerTrial];
+
+  const postBlock3Trial = [{
+    stimulus: [videoContent.postBlock3Generic],
+    ...kwargs,
+  }, clickFlowerTrial];
+
+  const postBlock4Trial = [{
+    stimulus: [videoContent.postBlock4Generic],
+    ...kwargs,
+  }, clickFlowerTrial];
+
+  const endTrial = [{
+    stimulus: [videoContent.endGeneric],
+    ...kwargs,
+  }];
+
+  videoTrials = {
+    intro1: introTrial1,
+    intro2: introTrial2,
+    intro3: introTrial3,
+    postPractice: postPracticeTrial,
+    postBlock1: postBlock1Trial,
+    postBlock2: postBlock2Trial,
+    postBlock3: postBlock3Trial,
+    postBlock4: postBlock4Trial,
+    end: endTrial,
+  };
+} else if (config.precue) {
   const introTrial = [{
     stimulus: [videoContent.intro],
     ...kwargs,
