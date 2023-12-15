@@ -215,6 +215,7 @@ const pushMEPTrials = (corpus, isPractice) => {
       isPractice,
       preCue: config.precue,
       dots: config.dots,
+      opacity: config.opacity,
     }));
   });
   return mepTimeline;
@@ -224,6 +225,8 @@ if (config.dots) {
   timeline.push(...videoTrials.intro1);
   timeline.push(...videoTrials.intro2);
   timeline.push(...videoTrials.intro3);
+  // TODO (Maha) Uncomment this line if you want to add a fourth intro video.
+  // timeline.push(...videoTrials.intro4);
   timeline.push(...pushMEPTrials(corpora.practice, true));
   timeline.push(...videoTrials.postPractice);
   timeline.push(...pushMEPTrials(corpora.b1, false));

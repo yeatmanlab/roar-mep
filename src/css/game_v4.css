@@ -1,4 +1,54 @@
 /* CSS Document */
+#rdk-image-left,
+#rdk-image-right,
+#rdk-div-left,
+#rdk-div-right {
+	position: fixed;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+#rdk-image-left,
+#rdk-image-right,
+#rdk-practice-image-left,
+#rdk-practice-image-right {
+	z-index: 999;
+}
+
+#rdk-div-left,
+#rdk-image-left,
+#rdk-practice-image-left {
+	left: 0;
+}
+
+#rdk-div-right,
+#rdk-image-right,
+#rdk-practice-image-right {
+	right: 0;
+}
+
+#rdk-div-left,
+#rdk-div-right {
+	width: 25%;
+	height: 100%;
+}
+
+#rdk-practice-image-left {
+	height: 100%;
+	width: 33%;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+#rdk-practice-image-right {
+	height: 100%;
+	width: 33%;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
 body {
 	width:60%;
 	margin: auto;

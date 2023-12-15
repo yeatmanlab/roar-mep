@@ -1,6 +1,7 @@
 import jsPsychVideoKeyboardResponse from "@jspsych/plugin-video-keyboard-response";
 import jsPsychImageButtonResponse from "@jspsych/plugin-image-button-response";
 import jsPsychHtmlButtonResponse from "@jspsych/plugin-html-button-response";
+import { pressKey } from '@jspsych/test-utils';
 import { config, jsPsych } from "./config";
 import { imgContent, videoContent } from "./preload";
 
@@ -51,11 +52,37 @@ const clickFlowerTrial = {
   margin_horizontal: "inherit",
 };
 
+const loadPracticeDivs = () => {
+  const video = document.getElementById('jspsych-video-keyboard-response-stimulus');
+
+  if (document.getElementById('rdk-practice-image-left') === null) {
+    const leftImg = document.createElement('div');
+    leftImg.id = 'rdk-practice-image-left';
+    leftImg.onclick = () => {
+      pressKey('ArrowLeft');
+    };
+    video.insertAdjacentElement('afterend', leftImg);
+  }
+
+  if (document.getElementById('rdk-practice-image-right') === null) {
+    const rightImg = document.createElement('div');
+    rightImg.id = 'rdk-practice-image-right';
+    rightImg.onclick = () => {
+      pressKey('ArrowRight');
+    };
+    video.insertAdjacentElement('afterend', rightImg);
+  }
+};
+
 let videoTrials;
 
 /* define instructions trial */
 if (config.dots) {
+  // TODO (Maha): Here is where we define the video trials for the generic
+  // attention variant.
   const introTrial1 = [{
+    // Note (Maha): The key name in the ``videoContent`` object matches the
+    // filename of the video asset (without the .mp4 extension).
     stimulus: [videoContent.intro1Generic],
     ...kwargs,
   }];
@@ -63,12 +90,29 @@ if (config.dots) {
   const introTrial2 = [{
     stimulus: [videoContent.intro2Generic],
     ...kwargs,
+    // TODO (Maha): The parameter below must be added in order to require a
+    // click on the left side of the screen after the video ends.
+    trial_ends_after_video: false,
+    choices: ["ArrowLeft"],
+    on_load: loadPracticeDivs,
   }];
 
   const introTrial3 = [{
     stimulus: [videoContent.intro3Generic],
     ...kwargs,
+    // TODO (Maha): The parameter below must be added in order to require a
+    // click on the right side of the screen after the video ends.
+    trial_ends_after_video: false,
+    choices: ["ArrowRight"],
+    on_load: loadPracticeDivs,
   }, clickFlowerTrial];
+
+  // TODO (Maha): Uncomment below to add the 4th into video (after you have
+  // added the file to assets and included it in prelead.js);
+  // const introTrial4 = [{
+  //   stimulus: [videoContent.intro4Generic],
+  //   ...kwargs,
+  // }, clickFlowerTrial];
 
   const postPracticeTrial = [{
     stimulus: [videoContent.postPracticeGeneric],
@@ -104,6 +148,8 @@ if (config.dots) {
     intro1: introTrial1,
     intro2: introTrial2,
     intro3: introTrial3,
+    // TODO: (Maha): Uncomment below to add the 4th into video
+    // intro4: introTrial4,
     postPractice: postPracticeTrial,
     postBlock1: postBlock1Trial,
     postBlock2: postBlock2Trial,

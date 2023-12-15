@@ -18,6 +18,11 @@ const pseudoFont = preCue ? false : urlParams.get("latinFont") !== "true";
 const classId = urlParams.get("classId");
 const schoolId = urlParams.get("schoolId");
 const fromDashboard = urlParams.get("fromDashboard") === "true";
+const opacityInput = parseFloat(urlParams.get("opacity"));
+
+let opacity = Number.isNaN(opacityInput) ? 1.0 : opacityInput;
+if (opacity > 1.0) opacity = 1.0;
+if (opacity < 0.0) opacity = 0.0;
 
 store.session.set("pid", pid);
 
@@ -147,8 +152,11 @@ export const config = {
   precue: preCue,
   dots: dots,
   classId,
-  schoolId
+  schoolId,
+  opacity: opacity,
 };
+
+console.log(config);
 
 export const jsPsych = initJsPsych({
   show_progress_bar: true,
