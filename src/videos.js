@@ -107,12 +107,10 @@ if (config.dots) {
     on_load: loadPracticeDivs,
   }, clickFlowerTrial];
 
-  // TODO (Maha): Uncomment below to add the 4th into video (after you have
-  // added the file to assets and included it in prelead.js);
-  // const introTrial4 = [{
-  //   stimulus: [videoContent.intro4Generic],
-  //   ...kwargs,
-  // }, clickFlowerTrial];
+  const introTrial4 = [{
+     stimulus: [videoContent.intro4Generic],
+     ...kwargs,
+  }, clickFlowerTrial];
 
   const postPracticeTrial = [{
     stimulus: [videoContent.postPracticeGeneric],
@@ -148,8 +146,7 @@ if (config.dots) {
     intro1: introTrial1,
     intro2: introTrial2,
     intro3: introTrial3,
-    // TODO: (Maha): Uncomment below to add the 4th into video
-    // intro4: introTrial4,
+    intro4: introTrial4,
     postPractice: postPracticeTrial,
     postBlock1: postBlock1Trial,
     postBlock2: postBlock2Trial,
