@@ -485,11 +485,11 @@ p  {
 }
 
 .bottom-border-blue {
-	border-bottom-color: blue !important;
+	border-bottom-color: rgba(0, 0, 255, 1) !important;
 }
 
 .bottom-border-red {
-	border-bottom-color: red !important;
+	border-bottom-color: rgba(255, 0, 0, 1) !important;
 }
 
 #jspsych-html-button-response-stimulus {
