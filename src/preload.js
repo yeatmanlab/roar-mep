@@ -55,7 +55,7 @@ import preCuePostBlock3 from "./assets/video/en/precue/postBlock3.mp4";
 import preCuePostBlock4 from "./assets/video/en/precue/postBlock4.mp4";
 import preCueEnd from "./assets/video/en/precue/end.mp4";
 // Generic visual attention versions (dots only)
-// TODO (Maha): If you rename or add video assets, be sure to import them in the lines below
+// If you rename or add video assets, be sure to import them in the lines below
 import genericIntro1 from "./assets/video/en/generic/intro1Generic.mp4";
 import genericIntro2 from "./assets/video/en/generic/intro2Generic.mp4";
 import genericIntro3 from "./assets/video/en/generic/intro3Generic.mp4";

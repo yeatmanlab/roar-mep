@@ -89,7 +89,7 @@ if (config.dots) {
   const introTrial2 = [{
     stimulus: [videoContent.intro2Generic],
     ...kwargs,
-    // TODO (Maha): The parameter below must be added in order to require a
+    // The parameter below must be added in order to require a
     // click on the left side of the screen after the video ends.
     trial_ends_after_video: false,
     choices: ["ArrowLeft"],
@@ -99,7 +99,7 @@ if (config.dots) {
   const introTrial3 = [{
     stimulus: [videoContent.intro3Generic],
     ...kwargs,
-    // TODO (Maha): The parameter below must be added in order to require a
+    // The parameter below must be added in order to require a
     // click on the right side of the screen after the video ends.
     trial_ends_after_video: false,
     choices: ["ArrowRight"],
