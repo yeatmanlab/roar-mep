@@ -67,16 +67,16 @@ import genericPostBlock3 from "./assets/video/en/generic/postBlock3Generic.mp4";
 import genericPostBlock4 from "./assets/video/en/generic/postBlock4Generic.mp4";
 import genericEnd from "./assets/video/en/generic/endGeneric.mp4";
 // Spanish language versions
-import genericIntro1 from "./assets/video/es/generic/intro1Generic.mp4";
-import genericIntro2 from "./assets/video/es/generic/intro2Generic.mp4";
-import genericIntro3 from "./assets/video/es/generic/intro3Generic.mp4";
-import genericIntro4 from "./assets/video/es/generic/intro4Generic.mp4";
-import genericPostPractice from "./assets/video/es/generic/postPracticeGeneric.mp4";
-import genericPostBlock1 from "./assets/video/es/generic/postBlock1Generic.mp4";
-import genericPostBlock2 from "./assets/video/es/generic/postBlock2Generic.mp4";
-import genericPostBlock3 from "./assets/video/es/generic/postBlock3Generic.mp4";
-import genericPostBlock4 from "./assets/video/es/generic/postBlock4Generic.mp4";
-import genericEnd from "./assets/video/es/generic/endGeneric.mp4";
+import genericIntro1Es from "./assets/video/es/generic/intro1Generic.mp4";
+import genericIntro2Es from "./assets/video/es/generic/intro2Generic.mp4";
+import genericIntro3Es from "./assets/video/es/generic/intro3Generic.mp4";
+import genericIntro4Es from "./assets/video/es/generic/intro4Generic.mp4";
+import genericPostPracticeEs from "./assets/video/es/generic/postPracticeGeneric.mp4";
+import genericPostBlock1Es from "./assets/video/es/generic/postBlock1Generic.mp4";
+import genericPostBlock2Es from "./assets/video/es/generic/postBlock2Generic.mp4";
+import genericPostBlock3Es from "./assets/video/es/generic/postBlock3Generic.mp4";
+import genericPostBlock4Es from "./assets/video/es/generic/postBlock4Generic.mp4";
+import genericEndEs from "./assets/video/es/generic/endGeneric.mp4";
 
 function importAll(r) {
   const assets = {};
