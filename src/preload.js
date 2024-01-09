@@ -188,8 +188,8 @@ if (config.language === "en") {
         genericPostBlock3Es,
         genericPostBlock4Es,
         genericEndEs,
-      ]
-    }
+      ],
+    };
   } else if (config.pseudoFont) {
     videoBlocks = {
       1: [
