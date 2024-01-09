@@ -2,11 +2,10 @@ import jsPsychVideoKeyboardResponse from "@jspsych/plugin-video-keyboard-respons
 import jsPsychImageButtonResponse from "@jspsych/plugin-image-button-response";
 import jsPsychHtmlButtonResponse from "@jspsych/plugin-html-button-response";
 import { pressKey } from '@jspsych/test-utils';
-import { config, jsPsych } from "./config";
+import { config } from "./config";
 import { imgContent, videoContent } from "./preload";
 
 const isMobile = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-console.log(`isMobile: ${isMobile()}`);
 
 const kwargs = {
   type: jsPsychVideoKeyboardResponse,
@@ -78,10 +77,10 @@ let videoTrials;
 
 /* define instructions trial */
 if (config.dots) {
-  // TODO (Maha): Here is where we define the video trials for the generic
+  // Here is where we define the video trials for the generic
   // attention variant.
   const introTrial1 = [{
-    // Note (Maha): The key name in the ``videoContent`` object matches the
+    // Note: The key name in the ``videoContent`` object matches the
     // filename of the video asset (without the .mp4 extension).
     stimulus: [videoContent.intro1Generic],
     ...kwargs,
@@ -108,8 +107,8 @@ if (config.dots) {
   }, clickFlowerTrial];
 
   const introTrial4 = [{
-     stimulus: [videoContent.intro4Generic],
-     ...kwargs,
+    stimulus: [videoContent.intro4Generic],
+    ...kwargs,
   }, clickFlowerTrial];
 
   const postPracticeTrial = [{

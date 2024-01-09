@@ -67,16 +67,16 @@ import genericPostBlock3 from "./assets/video/en/generic/postBlock3Generic.mp4";
 import genericPostBlock4 from "./assets/video/en/generic/postBlock4Generic.mp4";
 import genericEnd from "./assets/video/en/generic/endGeneric.mp4";
 // Spanish language versions
-import genericIntro1Es from "./assets/video/es/generic/intro1Generic.mp4";
-import genericIntro2Es from "./assets/video/es/generic/intro2Generic.mp4";
-import genericIntro3Es from "./assets/video/es/generic/intro3Generic.mp4";
-import genericIntro4Es from "./assets/video/es/generic/intro4Generic.mp4";
-import genericPostPracticeEs from "./assets/video/es/generic/postPracticeGeneric.mp4";
-import genericPostBlock1Es from "./assets/video/es/generic/postBlock1Generic.mp4";
-import genericPostBlock2Es from "./assets/video/es/generic/postBlock2Generic.mp4";
-import genericPostBlock3Es from "./assets/video/es/generic/postBlock3Generic.mp4";
-import genericPostBlock4Es from "./assets/video/es/generic/postBlock4Generic.mp4";
-import genericEndEs from "./assets/video/es/generic/endGeneric.mp4";
+import genericIntro1Es from "./assets/video/es/generic/intro1GenericEs.mp4";
+import genericIntro2Es from "./assets/video/es/generic/intro2GenericEs.mp4";
+import genericIntro3Es from "./assets/video/es/generic/intro3GenericEs.mp4";
+import genericIntro4Es from "./assets/video/es/generic/intro4GenericEs.mp4";
+import genericPostPracticeEs from "./assets/video/es/generic/postPracticeGenericEs.mp4";
+import genericPostBlock1Es from "./assets/video/es/generic/postBlock1GenericEs.mp4";
+import genericPostBlock2Es from "./assets/video/es/generic/postBlock2GenericEs.mp4";
+import genericPostBlock3Es from "./assets/video/es/generic/postBlock3GenericEs.mp4";
+import genericPostBlock4Es from "./assets/video/es/generic/postBlock4GenericEs.mp4";
+import genericEndEs from "./assets/video/es/generic/endGenericEs.mp4";
 
 function importAll(r) {
   const assets = {};
@@ -114,7 +114,7 @@ const preload_character_trials = {
 let videoBlocks;
 if (config.language === "en") {
   if (config.dots) {
-    // TODO (Maha): Any video assets that were imported above should also be
+    // Any video assets that were imported above should also be
     // included in the array below, by referencing the variable name that you
     // used in the import statement.
     videoBlocks = {
@@ -175,7 +175,22 @@ if (config.language === "en") {
   }
 } else {
   // eslint-disable-next-line no-lonely-if
-  if (config.pseudoFont) {
+  if (config.dots) {
+    videoBlocks = {
+      1: [
+        genericIntro1,
+        genericIntro2,
+        genericIntro3,
+        genericIntro4,
+        genericPostPractice,
+        genericPostBlock1,
+        genericPostBlock2,
+        genericPostBlock3,
+        genericPostBlock4,
+        genericEnd,
+      ]
+    }
+  } else if (config.pseudoFont) {
     videoBlocks = {
       1: [
         pseudoBlock1Es,
