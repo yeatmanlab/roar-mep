@@ -16,12 +16,15 @@ const updateProgressBar = () => {
   jsPsych.setProgressBar(curr_progress_bar_value + 1 / nStimuli);
 };
 
+const styleOpacity = (opacity) => `opacity: ${opacity};`;
+const styleText = (opacity) => `style="${styleOpacity(opacity)}"`;
+
 export const buildStimulusHtml = (stimuli, opacity = 1.0) => {
   let outputHtml = '<div class="center">';
   const stimLength = stimuli.length;
   stimuli.forEach((stimulus, index) => {
     if (index !== Math.floor(stimLength / 2)) {
-      outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus" style="opacity: ${opacity};" />`;
+      outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus" ${styleText(opacity)} />`;
     } else {
       outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus" />`;
     }
@@ -43,9 +46,9 @@ export const buildLocationCueHtml = (
   if (preCueLocation === null) {
     stimuli.forEach((stimulus, index) => {
       if (index === correctResponseIdx) {
-        outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus bottom-border-blue" style="opacity: ${opacity};" />`;
+        outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus bottom-border-blue" ${styleText(opacity)} />`;
       } else if (index !== Math.floor(stimLength / 2)) {
-        outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus" style="opacity: ${opacity};" />`;
+        outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus" ${styleText(opacity)} />`;
       } else {
         outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus" />`;
       }
@@ -53,9 +56,9 @@ export const buildLocationCueHtml = (
   } else if (preCueLocation === "left") {
     stimuli.forEach((stimulus, index) => {
       if (index < Math.floor(stimLength / 2)) {
-        outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus bottom-border-red" style="opacity: ${opacity};" />`;
+        outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus bottom-border-red" ${styleText(opacity)} />`;
       } else if (index !== Math.floor(stimLength / 2)) {
-        outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus" style="opacity: ${opacity};" />`;
+        outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus" ${styleText(opacity)} />`;
       } else {
         outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus" />`;
       }
@@ -66,9 +69,9 @@ export const buildLocationCueHtml = (
       // equal to because we incremented the length of the stimuli array above
       // by adding the plus sign.
       if (index > Math.floor(stimLength / 2)) {
-        outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus bottom-border-red" style="opacity: ${opacity};" />`;
+        outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus bottom-border-red" ${styleText(opacity)} />`;
       } else if (index !== Math.floor(stimLength / 2)) {
-        outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus" style="opacity: ${opacity};" />`;
+        outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus" ${styleText(opacity)} />`;
       } else {
         outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus" />`;
       }
@@ -76,7 +79,7 @@ export const buildLocationCueHtml = (
   } else if (preCueLocation === "both") {
     stimuli.forEach((stimulus, index) => {
       if (index !== Math.floor(stimLength / 2)) {
-        outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus bottom-border-red" style="opacity: ${opacity};" />`;
+        outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus bottom-border-red" ${styleText(opacity)} />`;
       } else {
         outputHtml += `<img draggable="false" src="${stimulus}" class="mep-stimulus" />`;
       }
@@ -93,7 +96,7 @@ export const makeRoarTrial = ({
 
   const fixationTrial = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: buildStimulusHtml([stimulus.source[Math.floor(stimulus.source.length / 2)]], opacity),
+    stimulus: buildStimulusHtml([stimulus.source[Math.floor(stimulus.source.length / 2)]], 1.0),
     choices: "NO_KEYS",
     stimulus_duration: null,
     trial_duration: fixation.duration,
@@ -111,7 +114,7 @@ export const makeRoarTrial = ({
         stimulus.source.length,
         stimulus.cueLocationIdx,
         stimulus.preCueLocation,
-        opacity,
+        1.0,
       ),
       choices: "NO_KEYS",
       stimulus_duration: null,
@@ -126,7 +129,7 @@ export const makeRoarTrial = ({
       type: jsPsychHtmlKeyboardResponse,
       stimulus: buildStimulusHtml(
         [stimulus.source[Math.floor(stimulus.source.length / 2)]],
-        opacity,
+        1.0,
       ),
       choices: "NO_KEYS",
       stimulus_duration: null,

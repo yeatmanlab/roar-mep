@@ -29,7 +29,7 @@ store.session.set("pid", pid);
 // Set up different redirects if preCue is true
 const redirect = () => {
   if (fromDashboard) {
-    window.location.href = 'https://roar.education'
+    window.location.href = 'https://roar.education';
   }
 
   if (redirectTo === 'refresh') {
@@ -155,8 +155,6 @@ export const config = {
   schoolId,
   opacity: opacity,
 };
-
-console.log(config);
 
 export const jsPsych = initJsPsych({
   show_progress_bar: true,
