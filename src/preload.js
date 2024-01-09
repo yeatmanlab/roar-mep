@@ -178,16 +178,16 @@ if (config.language === "en") {
   if (config.dots) {
     videoBlocks = {
       1: [
-        genericIntro1,
-        genericIntro2,
-        genericIntro3,
-        genericIntro4,
-        genericPostPractice,
-        genericPostBlock1,
-        genericPostBlock2,
-        genericPostBlock3,
-        genericPostBlock4,
-        genericEnd,
+        genericIntro1Es,
+        genericIntro2Es,
+        genericIntro3Es,
+        genericIntro4Es,
+        genericPostPracticeEs,
+        genericPostBlock1Es,
+        genericPostBlock2Es,
+        genericPostBlock3Es,
+        genericPostBlock4Es,
+        genericEndEs,
       ]
     }
   } else if (config.pseudoFont) {
