@@ -91,6 +91,11 @@ module.exports = {
       },
     ],
   },
+  resolve: {
+    alias: {
+      timers: false,
+    },
+  },
   experiments: {
     topLevelAwait: true,
   },

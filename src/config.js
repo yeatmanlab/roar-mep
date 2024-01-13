@@ -15,16 +15,21 @@ const pipeline = urlParams.get("pipeline") || "rc";
 const dots = urlParams.get("dots") || false;
 const preCue = dots ? true : (urlParams.get("precue") === "true") || false;
 const pseudoFont = preCue ? false : urlParams.get("latinFont") !== "true";
-const classId = urlParams.get("classId")
-const schoolId = urlParams.get("schoolId")
-const fromDashboard = urlParams.get("fromDashboard") === "true" ? true : false
+const classId = urlParams.get("classId");
+const schoolId = urlParams.get("schoolId");
+const fromDashboard = urlParams.get("fromDashboard") === "true";
+const opacityInput = parseFloat(urlParams.get("opacity"));
+
+let opacity = Number.isNaN(opacityInput) ? 1.0 : opacityInput;
+if (opacity > 1.0) opacity = 1.0;
+if (opacity < 0.0) opacity = 0.0;
 
 store.session.set("pid", pid);
 
 // Set up different redirects if preCue is true
 const redirect = () => {
   if (fromDashboard) {
-    window.location.href = 'https://roar.education'
+    window.location.href = 'https://roar.education';
   }
 
   if (redirectTo === 'refresh') {
@@ -97,6 +102,23 @@ function configTaskInfo() {
       ],
     };
   }
+  if (dots) {
+    taskInfo = {
+      taskId: "gea",
+      taskName: "Generic Executive Attention",
+      variantName: pipeline,
+      taskDescription: "This is a task measuring the automaticity of single character recognition.",
+      variantDescription:
+          "This variant uses one two-element block, two four-element blocks, and two six-element blocks.",
+      blocks: [
+        {
+          blockNumber: 0,
+          trialMethod: "fixed",
+          corpus: "practice_block",
+        },
+      ],
+    };
+  }
   return taskInfo;
 }
 
@@ -128,8 +150,10 @@ export const config = {
   startTime: new Date(),
   urlParams: urlParams,
   precue: preCue,
+  dots: dots,
   classId,
-  schoolId
+  schoolId,
+  opacity: opacity,
 };
 
 export const jsPsych = initJsPsych({
