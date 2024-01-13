@@ -84,7 +84,7 @@ if (config.dots) {
     // filename of the video asset (without the .mp4 extension).
     stimulus: [videoContent.intro1Generic],
     ...kwargs,
-  }];
+  }, clickFlowerTrial];
 
   const introTrial2 = [{
     stimulus: [videoContent.intro2Generic],
