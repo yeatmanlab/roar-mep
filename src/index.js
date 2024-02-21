@@ -57,6 +57,7 @@ preload_trials.forEach((trial) => {
 
 const getPid = {
   type: surveyText,
+  preamble: `ROAR-MEP (${config.language})`,
   questions: [
     {
       prompt: 'Participant ID:',
