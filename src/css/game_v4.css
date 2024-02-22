@@ -85,7 +85,7 @@ h3 {
 	color: rgba(76,101,139,1);
 }
 
-p  {
+p, .jspsych-survey-text-preamble  {
 	text-align:center;
 	vertical-align: middle;
 	font-family: "Source Sans Pro", Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
