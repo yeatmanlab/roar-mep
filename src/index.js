@@ -32,6 +32,8 @@ import "./css/game_v4.css";
 
 let firekit;
 const timeline = [];
+const queryString = new URL(window.location).search;
+const urlParams = new URLSearchParams(queryString);
 
 if (store.session("pid") !== null) {
   const userInfo = {
@@ -55,9 +57,27 @@ preload_trials.forEach((trial) => {
   timeline.push(trial);
 });
 
+function getLanguage(language) {
+  if(language === 'en'){
+    return 'English';
+  }
+  else{
+    return 'Spanish';
+  }
+};
+
+function getFont(fontType) {
+  console.log("param ", fontType)
+  if(fontType === 'false' || fontType === 'undefined' || !fontType){
+    return 'Symbols';
+  }else if(fontType === 'true'){
+    return 'Letters';
+  }
+};
+
 const getPid = {
   type: surveyText,
-  preamble: `ROAR-MEP (${config.language})`,
+  preamble: `ROAR-MEP <br> Language: ${getLanguage(config.language)} <br> ${getFont(urlParams.get("latinFont"))}`,
   questions: [
     {
       prompt: 'Participant ID:',
