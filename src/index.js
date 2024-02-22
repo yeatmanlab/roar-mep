@@ -67,7 +67,6 @@ function getLanguage(language) {
 };
 
 function getFont(fontType) {
-  console.log("param ", fontType)
   if(fontType === 'false' || fontType === 'undefined' || !fontType){
     return 'Symbols';
   }else if(fontType === 'true'){
